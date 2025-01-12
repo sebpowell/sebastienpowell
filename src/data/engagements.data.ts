@@ -22,6 +22,18 @@ const engagements: Engagement[] = [
     shots: 5,
   },
   {
+    title: "OpenFi",
+    slug: "openfi",
+    start: 2024,
+    end: 2024,
+    description:
+      "Designed and developed the UX, along with a design system library and mockups for key components of the company's MVP.",
+    href: "https://www.openfi.tech/",
+    capabilities: [Capabilities.design],
+    skills: [Skills["Figma"]],
+    shots: 4,
+  },
+  {
     title: "NU",
     slug: "nu",
     description:
