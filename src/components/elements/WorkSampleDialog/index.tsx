@@ -40,7 +40,7 @@ const WorkSampleImage = (props: WorkSampleImageProps) => {
         width={2000}
         height={1333}
         className="object-cover"
-        sizes="(max-width: 1024px) 100vw, 1024px"
+        sizes="(max-width: 1024px) 100vw, 1440px"
         priority
       />
     </Box>
@@ -109,7 +109,7 @@ const WorkSampleSidebar = () => {
   const formattedDomain = formatDomain(href);
 
   return (
-    <Box className="top-0 space-y-5 p-4 xl:sticky xl:w-[300px] xl:p-8">
+    <Box className="top-0 shrink-0 space-y-5 p-4 xl:sticky xl:w-[300px] xl:p-8">
       <Box className="space-y-5">
         <Box className="space-y-4">
           <Heading as="h1" size="h1" className="text-text-strong">
@@ -118,8 +118,10 @@ const WorkSampleSidebar = () => {
           <Paragraph>{description}</Paragraph>
         </Box>
         {formattedDomain && (
-          <Button className="relative">
-            <ButtonRotatingText label={formattedDomain} />
+          <Button asChild className="relative">
+            <Box as="a" href={href} target="_blank" rel="noopener noreferrer">
+              <ButtonRotatingText label={formattedDomain} />
+            </Box>
           </Button>
         )}
       </Box>
@@ -201,10 +203,10 @@ const WorkSampleDialog = () => {
             <WorkSampleSidebar />
             <Box className="flex-1">
               <Box className="p-4 xl:p-8">
-                <Box className="sticky top-8 z-10 hidden justify-end xl:flex">
+                <Box className="sticky top-8 z-10 hidden justify-end pb-5 xl:flex">
                   <WorkSampleClose />
                 </Box>
-                <Box className="mx-auto max-w-5xl space-y-4 xl:space-y-8">
+                <Box className="mx-auto max-w-[1440px] space-y-4 xl:space-y-8">
                   {Array.from({ length: shots }, (_, x) => {
                     return <WorkSampleImage key={x} number={x + 1} />;
                   })}
