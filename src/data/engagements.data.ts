@@ -37,13 +37,13 @@ const engagements: Engagement[] = [
     title: "NU",
     slug: "nu",
     description:
-      "Collaborated with backend, product, and design teams to develop the frontend for an AI-powered, multi-omics platform for healthcare practitioners.",
+      "Collaborated with backend, product, and design teams to design and develop an MVP for an AI-powered, multi-omics platform for healthcare practitioners.",
     start: 2024,
     end: 2024,
     href: "https://www.thenu.com/",
-    skills: [Skills["Material UI"], Skills["Vite"], Skills["React Admin"]],
-    capabilities: [Capabilities.frontend],
-    shots: 0,
+    skills: [Skills["Material UI"], Skills["Vite"], Skills["React Admin"], Skills["Figma"]],
+    capabilities: [Capabilities.design, Capabilities.frontend],
+    shots: 6,
   },
   {
     title: "Albert & Arthur",
@@ -65,7 +65,7 @@ const engagements: Engagement[] = [
       Skills["NX"],
       Skills["trpc"],
     ],
-    shots: 0,
+    shots: 5,
   },
   {
     title: "ITD Global",
