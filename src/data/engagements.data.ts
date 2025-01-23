@@ -65,7 +65,7 @@ const engagements: Engagement[] = [
       Skills["NX"],
       Skills["trpc"],
     ],
-    shots: 5,
+    shots: 0,
   },
   {
     title: "ITD Global",
