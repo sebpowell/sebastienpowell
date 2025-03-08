@@ -1,0 +1,25 @@
+---
+
+title: 'Hello World'
+date: '2024-03-08'
+
+---
+
+# Routing
+
+We use [`next-typesafe-url`](https://next-typesafe-url.dev/) for type-safe routing to prevent broken links by enforcing valid route structures. All child routes of `[locale]` extend the validation schema set there.
+
+> Note: TypeScript's autosuggestion may occasionally fail to suggest all generated URLs. In such cases, paths can be typed manually and will still be type-checked.
+
+## URL Generation
+
+The `$path` helper should be used for all imperative links. For example:
+
+```typescript
+router.push(
+  $path({
+    route: '/[locale]/blogs/[handle]',
+    routeParams: { handle: 'health-journal', locale },
+  }),
+);
+```
