@@ -9,19 +9,7 @@ import { HTMLMotionProps, motion } from "motion/react";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
 
-export const TapScale = (
-  props: PropsWithChildren<HTMLMotionProps<"button">>,
-) => {
-  return (
-    <Box
-      as={motion.div}
-      whileTap={{ scale: 0.9 }}
-      {...props}
-    >
-      {props.children}
-    </Box>
-  );
-};
+
 
 export const mdxComponents = (components: MDXComponents): MDXComponents => {
   return {
@@ -61,12 +49,15 @@ export const mdxComponents = (components: MDXComponents): MDXComponents => {
       );
     },
     pre: (props) => {
+
+
+      console.log(props);
       return <MarkdownCodeBlock {...props} />;
     },
     p: (props) => {
       return <Paragraph {...props} />;
     },
 
-    Dropzone: Dropzone,
+    Dropzone,
   };
 };

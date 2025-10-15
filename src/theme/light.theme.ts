@@ -17,6 +17,8 @@ const lightTheme: Theme = {
 
   'button-primary-text': white,
   'button-primary-background': black,
+
+  "button-secondary-background": neutral[200],
   'button-secondary-background-hover': neutral[300],
 
   'selection-background': neutral[300],

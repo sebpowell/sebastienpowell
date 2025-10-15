@@ -8,9 +8,9 @@ import { Themes } from "./src/theme/themes.enum";
 
 export default {
   content: [
-    "./src/mdx-components.tsx",
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/content/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {

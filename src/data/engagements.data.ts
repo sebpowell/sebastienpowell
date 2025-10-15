@@ -70,6 +70,22 @@ const engagements: Engagement[] = [
       Skills['NX'],
       Skills['trpc'],
     ],
+    shots: 1,
+  },
+  {
+    title: 'Collie',
+    slug: 'collie',
+    start: 2021,
+    end: 2023,
+    description:
+      'Designed and developed a customer-facing booking portal with a Nest.js backend, integrating multiple courier APIs through microservices. Delivered the final product as both a user interface and an API.',
+    href: 'https://www.itdglobal.com/',
+    skills: [],
+    capabilities: [
+      Capabilities.design,
+      Capabilities.frontend,
+      Capabilities.backend,
+    ],
     shots: 0,
   },
   {

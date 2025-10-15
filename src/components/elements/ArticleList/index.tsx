@@ -1,11 +1,28 @@
 "use client";
-import { Box } from "@/components/elements/Box";
+import { TapScale } from "@/components/elements/Animations/Tap";
+import { Box, BoxProps } from "@/components/elements/Box";
 import { Heading } from "@/components/elements/Heading";
-import { TapScale } from "@/components/elements/Markdown/components";
+
 import { Post, PostBase } from "@/interfaces/post.type";
+import { cn } from "@/utils/cn.util";
 import { useClickSound } from "@/utils/useClickSound";
 import { $path } from "next-typesafe-url";
 import Link from "next/link";
+
+export const HoverEffect = (props: BoxProps) => {
+  const { className, ...rest } = props;
+
+  return (
+    <Box
+      className={cn(
+        "absolute -inset-x-2 -inset-y-2 z-0 scale-95 bg-zinc-700 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:rounded-2xl",
+        className,
+      )}
+      {...rest}
+    />
+  );
+};
+
 
 const ArticleListItem = (props: { article: Post }) => {
   const { article } = props;
@@ -13,16 +30,16 @@ const ArticleListItem = (props: { article: Post }) => {
   const [play] = useClickSound();
 
   return (
-    <Box
-      className="bg-bg-background-secondary rounded-xl p-1"
-      onClick={() => play()}
-    >
-      <Box className="bg-bg-background-tertiary aspect-[4/3] rounded-[8px]" />
-      <Box className="p-3 pb-2">
-        <Heading as="h3" size="h3" className="text-text-strong">
-          {article.title}
-        </Heading>
-        <Box>Date</Box>
+    <Box className="group relative" onClick={() => play()}>
+      <HoverEffect />
+      <Box className="relative">
+        <Box className="aspect-[4/3] rounded-[8px] bg-bg-background-tertiary" />
+        <Box className="p-3 pb-2">
+          <Heading as="h3" size="h3" className="text-text-strong">
+            {article.title}
+          </Heading>
+          <Box>Date</Box>
+        </Box>
       </Box>
     </Box>
   );

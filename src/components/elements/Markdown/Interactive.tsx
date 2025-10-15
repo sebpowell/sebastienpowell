@@ -1,3 +1,3 @@
-export const Interactive = () => {
-  <div className="w-full rounded-lg border bg-yellow-200 p-4"></div>;
+export const Interactive = ({ children }: { children: React.ReactNode }) => {
+  return <div className="w-full rounded-lg border p-8">{children}</div>;
 };

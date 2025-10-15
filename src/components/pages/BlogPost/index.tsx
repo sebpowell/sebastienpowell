@@ -1,4 +1,5 @@
 // "use client";
+import { TapScale } from "@/components/elements/Animations/Tap";
 import { Box } from "@/components/elements/Box";
 import { Heading } from "@/components/elements/Heading";
 import { mdxComponents } from "@/components/elements/Markdown/components";
@@ -8,7 +9,10 @@ import { MDXRemote } from "next-mdx-remote-client/rsc";
 import Link from "next/link";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
+import rehypePrism from 'rehype-prism-plus'
+import rehypeCodeTitles from 'rehype-code-titles'
 
+import rehypeHighlightLines from "rehype-highlight-code-lines";
 const BlogPostHeader = (props: {
   title: string;
   date: string;
@@ -19,7 +23,7 @@ const BlogPostHeader = (props: {
   return (
     <Box as="header" className="space-y-6">
       <Link
-        href="/blog"
+        href="/"
         className="inline-flex size-10 items-center justify-center gap-1 rounded-full border"
       >
         <ArrowLeft className="size-3" />
@@ -37,7 +41,7 @@ export const BlogPost = (props: { post: Post }) => {
   const { source } = post;
 
   return (
-    <article className="markdown w-full">
+    <Box className="w-full space-y-6">
       <BlogPostHeader title={post.title} date={post.date} readingTime={0} />
 
       <Box as="main" className="markdown">
@@ -47,14 +51,15 @@ export const BlogPost = (props: { post: Post }) => {
           options={{
             parseFrontmatter: true,
             mdxOptions: {
-              rehypePlugins: [rehypeSlug, rehypeHighlight],
+              rehypePlugins: [
+                rehypeSlug,
+                [rehypePrism, {showLineNumbers: true}],
+                rehypeCodeTitles
+              ],
             },
           }}
         />
       </Box>
-      {/* {nextPost && <Box>Next</Box>} */}
-      {/* {previousPost && <Box>Prev</Box>} */}
-    </article>
-    // </BlogPostContext>
+    </Box>
   );
 };

@@ -36,21 +36,22 @@ const MarkdownCodeBlock = (
   }, [children]);
 
   return (
-    <pre ref={preRef} className="relative rounded-xl border text-sm overflow-hidden">
-      <div
-        className="overflow-scroll"
-        style={{ maxHeight: isExpanded ? "none" : maxHeight }}
+    <div className="rounded-xl border p-1">
+      <div>Typescript</div>
+      <pre
+        ref={preRef}
+        className="relative overflow-hidden rounded-xl border text-sm"
       >
         {children}
-      </div>
 
-      <div
-        className="absolute bottom-0 right-0 w-full bg-gradient-to-t from-bg-page to-bg-page/0 p-4 text-center text-sm text-text-strong"
-        onClick={() => setIsExpanded()}
-      >
-        Expand
-      </div>
-    </pre>
+        <div
+          className="absolute bottom-0 right-0 w-full bg-gradient-to-t from-bg-page to-bg-page/0 p-4 text-center text-sm text-text-strong"
+          onClick={() => setIsExpanded()}
+        >
+          Expand
+        </div>
+      </pre>
+    </div>
   );
 };
 

@@ -1,13 +1,13 @@
+import { TapScale } from "@/components/elements/Animations/Tap";
 import { Box } from "@/components/elements/Box";
 import { Heading } from "@/components/elements/Heading";
-import { TapScale } from "@/components/elements/Markdown/components";
+
 import Image from "next/image";
 
 const HomeIntro = () => {
   return (
     <Box className="flex items-center gap-4">
       <TapScale>
-        sdfgds
         <Box className="relative size-20 shrink-0 rounded-full">
           <Image
             src="/avatar.png"

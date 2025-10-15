@@ -9,7 +9,7 @@ type HeadingProps = {
 const headingStyles = cva(['font-semibold'], {
   variants: {
     size: {
-      h1: 'text-2xl',
+      h1: 'text-3xl',
       h2: 'text-lg',
       h3: 'text-base',
       h4: 'text-sm',

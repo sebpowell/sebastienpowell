@@ -1,3 +1,4 @@
+import { HoverEffect } from '@/components/elements/ArticleList';
 import { Box } from '@/components/elements/Box';
 import { Heading } from '@/components/elements/Heading';
 import { Link } from '@/components/elements/Link';
@@ -36,10 +37,12 @@ const EngagementListItem = (props: EngagementProps) => {
             <Box className="text-text-muted">{capabilities.join(', ')}</Box>
           </Box>
           {/* <Markdown content={description} /> */}
+          {description}
         </Box>
 
         {shots > 0 && (
-          <NextLink href={`/work/${slug}`} className="block w-full">
+          <NextLink href={`/work/${slug}`} className="block w-full relative group">
+            <HoverEffect />
             <ProjectThumbnail alt={title} slug={slug} />
           </NextLink>
         )}

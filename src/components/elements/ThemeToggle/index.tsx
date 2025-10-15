@@ -1,12 +1,16 @@
-'use client';
-import { Box } from '@/components/elements/Box';
-import { Themes } from '@/theme/themes.enum';
-import { useTheme } from 'next-themes';
+"use client";
+import { Box } from "@/components/elements/Box";
+import { Themes } from "@/theme/themes.enum";
+import { useThemeToggleSound } from "@/utils/useClickSound";
+import { useTheme } from "next-themes";
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
 
+  const [play] = useThemeToggleSound();
+
   const handleToggle = () => {
+    play();
     setTheme(theme === Themes.light ? Themes.dark : Themes.light);
   };
 
