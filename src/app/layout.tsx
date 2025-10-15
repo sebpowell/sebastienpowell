@@ -1,4 +1,4 @@
-import "./globals.css";
+import "./globals.scss";
 import { LayoutRoot } from "@/components/layouts/LayoutRoot";
 import type { Metadata } from "next";
 

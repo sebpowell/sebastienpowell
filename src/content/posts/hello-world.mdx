@@ -1,11 +1,9 @@
 ---
-
-title: 'Hello World'
-date: '2024-03-08'
-
+title: "Hello World"
+date: "2024-03-08"
 ---
 
-# Routing
+## Routing
 
 We use [`next-typesafe-url`](https://next-typesafe-url.dev/) for type-safe routing to prevent broken links by enforcing valid route structures. All child routes of `[locale]` extend the validation schema set there.
 
@@ -15,11 +13,12 @@ We use [`next-typesafe-url`](https://next-typesafe-url.dev/) for type-safe routi
 
 The `$path` helper should be used for all imperative links. For example:
 
+<Dropzone />
+
 ```typescript
-router.push(
-  $path({
-    route: '/[locale]/blogs/[handle]',
-    routeParams: { handle: 'health-journal', locale },
-  }),
-);
+type T = {
+  test: string;
+};
 ```
+
+This approach gives you the full power of React components within your markdown content!

@@ -1,5 +1,5 @@
-import { Capabilities } from "@/enum/capabilities.enum";
-import { Skills } from "@/enum/skills.enum";
+import { Capabilities } from '@/enum/capabilities.enum';
+import { Skills } from '@/enum/skills.enum';
 
 type Engagement = {
   title: string;

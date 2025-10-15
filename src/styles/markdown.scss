@@ -1,0 +1,30 @@
+.markdown {
+  > p,
+  > ul,
+  > ol,
+  > div,
+  > pre {
+    @apply mb-6 last:mb-0;
+  }
+
+  a {
+    @apply text-text-strong
+  }
+
+  p > code {
+    @apply bg-bg-subtle px-1 py-1 text-sm;
+  }
+
+  h2,
+  h3 {
+    @apply mb-2 mt-12 text-lg font-semibold text-text-strong;
+  }
+
+  ul {
+    @apply list-disc pl-4;
+  }
+
+  strong {
+    @apply font-semibold;
+  }
+}

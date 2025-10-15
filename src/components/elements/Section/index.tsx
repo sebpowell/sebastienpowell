@@ -1,4 +1,4 @@
-import { Box, BoxProps } from "@/components/elements/Box";
+import { Box, BoxProps } from '@/components/elements/Box';
 
 const SectionHeader = (props: BoxProps) => {
   return <Box className="pb-4" {...props} />;

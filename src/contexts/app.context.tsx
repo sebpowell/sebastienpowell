@@ -1,8 +1,8 @@
-"use client";
-import { engagements } from "@/data/engagements.data";
-import { Engagement } from "@/interfaces/engagement.type";
-import { createContext } from "@/utils/createContext.util";
-import { ReactNode } from "react";
+'use client';
+import { engagements } from '@/data/engagements.data';
+import { Engagement } from '@/interfaces/engagement.type';
+import { createContext } from '@/utils/createContext.util';
+import { ReactNode } from 'react';
 
 type AppContextProps = {
   engagements: Engagement[];

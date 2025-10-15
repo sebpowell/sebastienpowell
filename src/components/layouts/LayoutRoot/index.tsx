@@ -1,8 +1,8 @@
-import { Providers } from "@/app/providers";
-import { LayoutMain } from "@/components/layouts/LayoutMain";
-import { Inter } from "next/font/google";
+import { Providers } from '@/app/providers';
+import { LayoutMain } from '@/components/layouts/LayoutMain';
+import { Inter } from 'next/font/google';
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 const LayoutRoot = ({
   children,

@@ -1,5 +1,5 @@
-import { Box } from "@/components/elements/Box";
-import Image from "next/image";
+import { Box } from '@/components/elements/Box';
+import Image from 'next/image';
 
 type ProjectThumbnailProps = {
   alt: string;

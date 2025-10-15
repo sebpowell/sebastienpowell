@@ -1,4 +1,3 @@
-
 import { Box } from '@/components/elements/Box';
 import { Icon } from '@/components/elements/Icon';
 import { useEffect, useState } from 'react';
@@ -35,8 +34,12 @@ const CopyToClipboard = (props: CopyToClipboardProps) => {
   };
 
   return (
-    <Box as="button" onClick={handleClick} className="w-4">
-      <Icon icon={showTick ? 'Check' : 'Copy'} />
+    <Box
+      as="button"
+      onClick={handleClick}
+      className="flex size-6 items-center justify-center border"
+    >
+      <Icon icon={showTick ? 'Check' : 'Copy'} className="size-4" />
     </Box>
   );
 };

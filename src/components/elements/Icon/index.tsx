@@ -1,9 +1,9 @@
-import { Check, Copy, LucideProps } from "lucide-react";
-import { createElement } from "react";
+import { Check, Copy, LucideProps } from 'lucide-react';
+import { createElement } from 'react';
 
 const IconComponents = {
   Check,
-  Copy
+  Copy,
 };
 
 type IconNames = keyof typeof IconComponents;
@@ -19,7 +19,7 @@ const Icon = (props: IconProps) => {
   const iconComponent = IconComponents[icon];
 
   if (!iconComponent) {
-    console.warn("Icon does not exist", icon);
+    console.warn('Icon does not exist', icon);
     return;
   }
 

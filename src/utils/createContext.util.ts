@@ -1,8 +1,8 @@
-"use client";
+'use client';
 import {
   createContext as _createContext,
   useContext as _useContext,
-} from "react";
+} from 'react';
 
 export interface CreateContextOptions {
   strict?: boolean;
@@ -15,7 +15,7 @@ type CreateContextReturn<T> = [React.Provider<T>, () => T, React.Context<T>];
 export function createContext<ContextType>(options: CreateContextOptions = {}) {
   const {
     strict = true,
-    errorMessage = "useContext: `context` is undefined. Seems you forgot to wrap component within the Provider",
+    errorMessage = 'useContext: `context` is undefined. Seems you forgot to wrap component within the Provider',
     name,
   } = options;
 

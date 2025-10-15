@@ -1,4 +1,4 @@
-import { WorkSampleDialog } from "@/components/elements/WorkSampleDialog";
+import { WorkSampleDialog } from '@/components/elements/WorkSampleDialog';
 
 export default function WorkSample() {
   return <WorkSampleDialog />;

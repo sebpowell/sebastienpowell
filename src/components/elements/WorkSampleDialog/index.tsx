@@ -1,25 +1,25 @@
-"use client";
-import { Box } from "@/components/elements/Box";
-import { Button, ButtonRotatingText } from "@/components/elements/Button";
+'use client';
+import { Box } from '@/components/elements/Box';
+import { Button, ButtonRotatingText } from '@/components/elements/Button';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
-} from "@/components/elements/Dialog";
-import { Heading } from "@/components/elements/Heading";
-import { Paragraph } from "@/components/elements/Paragraph";
-import { useAppContext } from "@/contexts/app.context";
-import { Engagement } from "@/interfaces/engagement.type";
-import { createContext } from "@/utils/createContext.util";
-import { formatEngagementDate } from "@/utils/formatDate";
-import { formatDomain } from "@/utils/formatDomain";
-import Image from "next/image";
-import { notFound, useParams, useRouter } from "next/navigation";
-import { ReactNode, useEffect, useState } from "react";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { motion, Variants } from "motion/react";
-import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+} from '@/components/elements/Dialog';
+import { Heading } from '@/components/elements/Heading';
+import { Paragraph } from '@/components/elements/Paragraph';
+import { useAppContext } from '@/contexts/app.context';
+import { Engagement } from '@/interfaces/engagement.type';
+import { createContext } from '@/utils/createContext.util';
+import { formatEngagementDate } from '@/utils/formatDate';
+import { formatDomain } from '@/utils/formatDomain';
+import Image from 'next/image';
+import { notFound, useParams, useRouter } from 'next/navigation';
+import { ReactNode, useEffect, useState } from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { motion, Variants } from 'motion/react';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 
 type WorkSampleImageProps = {
   number: number;
@@ -78,7 +78,7 @@ const WorkSampleDialogMeta = () => {
   return (
     <Box className="space-y-4">
       <WorkSampleAttribute title="Capabilties">
-        {capabilities.join(", ")}
+        {capabilities.join(', ')}
       </WorkSampleAttribute>
       <WorkSampleAttribute title="Tools">
         <Box className="flex flex-wrap gap-2">

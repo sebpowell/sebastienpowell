@@ -1,11 +1,11 @@
-import { Box } from "@/components/elements/Box";
-import { Heading } from "@/components/elements/Heading";
-import { Link } from "@/components/elements/Link";
-import { Markdown } from "@/components/elements/Markdown";
-import { ProjectThumbnail } from "@/components/elements/ProjectThumbnail";
-import { useAppContext } from "@/contexts/app.context";
-import { Engagement } from "@/interfaces/engagement.type";
-import NextLink from "next/link";
+import { Box } from '@/components/elements/Box';
+import { Heading } from '@/components/elements/Heading';
+import { Link } from '@/components/elements/Link';
+// import { Markdown } from '@/components/elements/Markdown';
+import { ProjectThumbnail } from '@/components/elements/ProjectThumbnail';
+import { useAppContext } from '@/contexts/app.context';
+import { Engagement } from '@/interfaces/engagement.type';
+import NextLink from 'next/link';
 
 type EngagementProps = Engagement;
 
@@ -33,9 +33,9 @@ const EngagementListItem = (props: EngagementProps) => {
                 {title}
               </Link>
             </Heading>
-            <Box className="text-text-muted">{capabilities.join(", ")}</Box>
+            <Box className="text-text-muted">{capabilities.join(', ')}</Box>
           </Box>
-          <Markdown content={description} />
+          {/* <Markdown content={description} /> */}
         </Box>
 
         {shots > 0 && (
