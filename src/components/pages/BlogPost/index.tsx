@@ -53,8 +53,9 @@ export const BlogPost = (props: { post: Post }) => {
             mdxOptions: {
               rehypePlugins: [
                 rehypeSlug,
+                rehypeCodeTitles,
                 [rehypePrism, {showLineNumbers: true}],
-                rehypeCodeTitles
+                
               ],
             },
           }}

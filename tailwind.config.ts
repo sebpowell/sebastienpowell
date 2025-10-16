@@ -5,6 +5,7 @@ import tailwindCssAnimate from "tailwindcss-animate";
 import { darkTheme } from "./src/theme/dark.theme";
 import { lightTheme } from "./src/theme/light.theme";
 import { Themes } from "./src/theme/themes.enum";
+import { neutral } from "./src/theme/palettes";
 
 export default {
   content: [
@@ -15,6 +16,9 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        neutral,
+      },
       space: {
         "form-default": spacing[10],
       },

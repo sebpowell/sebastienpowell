@@ -26,7 +26,9 @@ Gives precise dash control.
 Is trivial to start/stop via an active prop while keeping pointer-events: none.
 Plays nicely with responsive layouts when paired with a measurement hook.
 
-```tsx
+<Dropzone />
+
+```typescript
 import { Box, BoxProps } from "@/components/elements/Box";
 import { cn } from "@/utils/cn.util";
 
@@ -116,3 +118,6 @@ The component is “controlled” for size—on purpose. You pass svgWidth/svgHe
 Why measuring is needed: SVG needs concrete pixel dimensions to produce precise dash spacing and avoid scaling artifacts. Percent-based SVG with normalized viewBox can render, but dash fidelity typically suffers.
 
 
+
+https://codepen.io/amit_sheen/pen/xxZeyjO
+https://kovart.github.io/dashed-border-generator/

@@ -12,7 +12,7 @@ const ContactRow = (props: ContactRow) => {
 
   return (
     <Box className="flex flex-col lg:flex-row lg:items-center">
-      <Box className="lg:w-[150px]">{title}</Box>
+      <Box className="lg:w-[150px] text-text-muted">{title}</Box>
       <Box className="flex gap-1 text-text-strong">
         <Link as="a" href={href} target="_blank" variant="ghost" external>
           {label}

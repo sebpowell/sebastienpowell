@@ -30,16 +30,11 @@ export function AnimatedDashedBorder(
   const w = measuredWidth - strokeWidth;
   const h = measuredHeight - strokeWidth;
   return (
-    // <Box
-    //   className={cn("group relative bg-red-500", className)}
-    //   {...rest}
-    // >
     <svg
       width={measuredWidth}
       height={measuredHeight}
       viewBox={`0 0 ${measuredWidth} ${measuredHeight}`}
-      className="group pointer-events-none absolute inset-0"
-      
+      className={cn("group pointer-events-none absolute inset-0", className)}
     >
       <rect
         x={strokeWidth / 2}
@@ -69,8 +64,5 @@ export function AnimatedDashedBorder(
 				`}
       </style>
     </svg>
-    // {/* <div className="relative z-[2] size-full">{children}</div> */}
-
-    // </Box>
   );
 }

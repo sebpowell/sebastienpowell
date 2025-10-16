@@ -1,12 +1,12 @@
-import { HoverEffect } from '@/components/elements/ArticleList';
-import { Box } from '@/components/elements/Box';
-import { Heading } from '@/components/elements/Heading';
-import { Link } from '@/components/elements/Link';
+import { HoverEffect } from "@/components/elements/ArticleList";
+import { Box } from "@/components/elements/Box";
+import { Heading } from "@/components/elements/Heading";
+import { Link } from "@/components/elements/Link";
 // import { Markdown } from '@/components/elements/Markdown';
-import { ProjectThumbnail } from '@/components/elements/ProjectThumbnail';
-import { useAppContext } from '@/contexts/app.context';
-import { Engagement } from '@/interfaces/engagement.type';
-import NextLink from 'next/link';
+import { ProjectThumbnail } from "@/components/elements/ProjectThumbnail";
+import { useAppContext } from "@/contexts/app.context";
+import { Engagement } from "@/interfaces/engagement.type";
+import NextLink from "next/link";
 
 type EngagementProps = Engagement;
 
@@ -22,7 +22,7 @@ const EngagementListItem = (props: EngagementProps) => {
 
       <Box className="flex-1 space-y-6">
         <Box className="space-y-4">
-          <Box>
+          <Box className="space-y-1">
             <Heading as="h3" size="h3" className="text-text-strong">
               <Link
                 as="a"
@@ -34,15 +34,17 @@ const EngagementListItem = (props: EngagementProps) => {
                 {title}
               </Link>
             </Heading>
-            <Box className="text-text-muted">{capabilities.join(', ')}</Box>
+            <Box className="text-text-muted leading-none">{capabilities.join(", ")}</Box>
           </Box>
-          {/* <Markdown content={description} /> */}
-          {description}
+          <Box>{description}</Box>
         </Box>
 
         {shots > 0 && (
-          <NextLink href={`/work/${slug}`} className="block w-full relative group">
-            <HoverEffect />
+          <NextLink
+            href={`/work/${slug}`}
+            className="group relative block w-full"
+          >
+            <HoverEffect className="bg-neutral-800" />
             <ProjectThumbnail alt={title} slug={slug} />
           </NextLink>
         )}

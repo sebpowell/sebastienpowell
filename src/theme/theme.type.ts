@@ -1,9 +1,9 @@
 type Theme = {
-  "bg-root": string;
-  "bg-page": string;
-  "bg-subtle": string
+  "background-default": string;
+  "background-surface": string;
+  "background-surface-subtle": string;
 
-  "border-primary": string;
+  "border-default": string;
 
   "button-primary-background": string;
   "button-primary-text": string;

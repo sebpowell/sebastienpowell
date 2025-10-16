@@ -7,22 +7,22 @@ import Image from "next/image";
 const HomeIntro = () => {
   return (
     <Box className="flex items-center gap-4">
-      <TapScale>
-        <Box className="relative size-20 shrink-0 rounded-full">
-          <Image
-            src="/avatar.png"
-            alt="Sebastien Powell"
-            fill
-            sizes="5rem"
-            priority
-          />
-        </Box>
-      </TapScale>
-      <Box>
-        <Heading as="h1" className="text-text-strong" size="h2">
+      <Box className="relative size-16 shrink-0 rounded-full">
+        <Image
+          src="/avatar.png"
+          alt="Sebastien Powell"
+          fill
+          sizes="5rem"
+          priority
+        />
+      </Box>
+      <Box className="space-y-2">
+        <Heading as="h1" className="leading-none text-text-strong" size="h1">
           Sebastien Powell
         </Heading>
-        <Box className="text-text-muted">Product Design &amp; Engineering</Box>
+        <Box className="leading-none text-text-muted">
+          Product Design &amp; Engineering
+        </Box>
       </Box>
     </Box>
   );

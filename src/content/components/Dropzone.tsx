@@ -5,9 +5,10 @@ import { Box } from "@/components/elements/Box";
 import { Interactive } from "@/components/elements/Markdown/Interactive";
 import { useElementSize } from "@/utils/useElementSize";
 
-import { File } from "lucide-react";
+import { File, Upload } from "lucide-react";
 import { useState } from "react";
 import { useMeasure } from "@uidotdev/usehooks";
+import { Icon } from "@/components/elements/Icon";
 
 export function Dropzone() {
   const [isHovering, setIsHovering] = useState(false);
@@ -15,27 +16,31 @@ export function Dropzone() {
   const [ref, { width, height }] = useMeasure();
 
   return (
-    <div
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-      className="relative p-12"
-    >
-      <div ref={ref} className="relative p-4">
-        {/* Clickable content */}
-        <button className="relative z-[2]">Upload files</button>
+    <Interactive>
+      <div className="bg-background-surface-interactive rounded-xl p-1">
+        <div
+          ref={ref}
+          className="text-border-strong relative flex cursor-pointer items-center gap-x-3 p-4 hover:text-purple-500"
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+        >
+          <Box className="text-text-strong">
+            <Upload className="size-5" />
+            <Box className="relative z-[2]">Drop your files here</Box>
+          </Box>
 
-        {/* Ants overlay, no pointer events */}
-        <AnimatedDashedBorder
-          svgWidth={width}
-          svgHeight={height}
-          dashArray="6 3"
-          strokeWidth={2}
-          borderRadius={10}
-          animationDuration={1}
-          active={isHovering}
-          className="absolute inset-0"
-        />
+          <AnimatedDashedBorder
+            svgWidth={width}
+            svgHeight={height}
+            dashArray="4 4"
+            strokeWidth={1}
+            borderRadius={10}
+            animationDuration={1}
+            active={isHovering}
+            className="absolute inset-0"
+          />
+        </div>
       </div>
-    </div>
+    </Interactive>
   );
 }
