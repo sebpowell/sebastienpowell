@@ -1,9 +1,9 @@
 "use client";
 
 import { Box } from "@/components/elements/Box";
-import "highlight.js/styles/stackoverflow-dark.css";
 import { useEffect, useRef, useState } from "react";
-import { useToggle } from "react-use";
+import { useCopyToClipboard, useTimeoutFn, useToggle } from "react-use";
+import "../../../styles/code.scss";
 
 const MarkdownCodeBlock = (
   props: React.DetailedHTMLProps<
@@ -12,6 +12,7 @@ const MarkdownCodeBlock = (
   >,
 ) => {
   const { children, className } = props;
+
   const preRef = useRef<HTMLPreElement>(null);
 
   const [isExpanded, setIsExpanded] = useToggle(false);
@@ -20,7 +21,24 @@ const MarkdownCodeBlock = (
 
   const language = /language-(\w+)/.exec(className || "")?.[1] ?? null;
 
-  const maxHeight = 200;
+  const maxHeight = 500;
+
+  const [state, copyToClipboard] = useCopyToClipboard();
+
+  const [showTick, setShowTick] = useState(false);
+
+  const [, , resetTimeout] = useTimeoutFn(() => setShowTick(false), 1000);
+
+  useEffect(() => {
+    if (state.value) {
+      setShowTick(true);
+    }
+  }, [state]);
+
+  const handleClick = () => {
+    copyToClipboard(preRef?.current?.textContent || "");
+    resetTimeout();
+  };
 
   useEffect(() => {
     const checkHeight = () => {
@@ -38,30 +56,29 @@ const MarkdownCodeBlock = (
   }, [children]);
 
   return (
-    <Box className="bg-background-secondary relative rounded-2xl p-[3px] pt-0 border">
+    <Box className="relative rounded-2xl border bg-background-surface p-[3px] pt-0 dark">
       <Box
         as="header"
-        className="flex items-center justify-between px-3 py-2.5 text-xs"
+        className="flex items-center justify-between px-3 py-2 text-xs"
       >
-        <Box>{language}</Box>
-        <Box>Copy</Box>
+        <Box className="text-text-muted">{language}</Box>
+        <Box
+          as="button"
+          className="rounded-full bg-background-surface-interactive px-2.5 py-1.5 leading-none text-text-muted hover:text-text-strong"
+          onClick={handleClick}
+        >
+          {showTick ? "Copied!" : "Copy"}
+        </Box>
       </Box>
-      <Box className="relative overflow-hidden rounded-[12px] border bg-bg-page">
+      <Box className="relative overflow-hidden rounded-[12px] border bg-background-default">
         <Box
           as="pre"
           ref={preRef}
-          className="relative overflow-scroll bg-background-surface-subtle py-3 text-[13px]"
+          className="code relative overflow-scroll whitespace-pre bg-background-surface-subtle p-3 text-[13px]"
           style={{ maxHeight: isExpanded ? "none" : maxHeight }}
         >
           {children}
         </Box>
-
-        <div
-          className="absolute bottom-0 right-0 w-full bg-gradient-to-t from-bg-page to-bg-page/0 p-4 text-center text-sm text-text-strong"
-          onClick={() => setIsExpanded()}
-        >
-          Expand
-        </div>
       </Box>
     </Box>
   );

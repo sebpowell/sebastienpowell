@@ -1,46 +1,47 @@
 import { Box, BoxProps } from "@/components/elements/Box";
 import { cn } from "@/utils/cn.util";
 
-export function AnimatedDashedBorder(
-  props: BoxProps & {
-    animationDuration?: number;
-    borderRadius?: number;
-    dashArray?: string;
-    strokeWidth?: number;
-    svgWidth?: number;
-    svgHeight?: number;
-    active?: boolean;
-  },
-) {
+type AnimatedDashedBorderProps = BoxProps<"svg"> & {
+  animationDuration?: number;
+  borderRadius?: number;
+  dashArray?: string;
+  strokeWidth?: number;
+  width?: number;
+  height?: number;
+  active?: boolean;
+};
+
+export function AnimatedDashedBorder(props: AnimatedDashedBorderProps) {
   const {
     borderRadius = 8,
     animationDuration = 1,
     dashArray = "4 4",
     strokeWidth = 1,
-    svgWidth,
-    svgHeight,
+    width = 0,
+    height = 0,
     active = false,
     children,
     className,
     ...rest
   } = props;
 
-  const measuredWidth = svgWidth ?? 0;
-  const measuredHeight = svgHeight ?? 0;
-  const w = measuredWidth - strokeWidth;
-  const h = measuredHeight - strokeWidth;
+  const rectWidth = width - strokeWidth;
+
+  const rectHeight = height - strokeWidth;
+
   return (
     <svg
-      width={measuredWidth}
-      height={measuredHeight}
-      viewBox={`0 0 ${measuredWidth} ${measuredHeight}`}
-      className={cn("group pointer-events-none absolute inset-0", className)}
+      width={width}
+      height={height}
+      viewBox={`0 0 ${width} ${height}`}
+      className={cn("pointer-events-none absolute inset-0", className)}
+      {...rest}
     >
       <rect
         x={strokeWidth / 2}
         y={strokeWidth / 2}
-        width={w}
-        height={h}
+        width={rectWidth}
+        height={rectHeight}
         rx={borderRadius}
         ry={borderRadius}
         fill="none"
@@ -58,7 +59,7 @@ export function AnimatedDashedBorder(
         {`
 					@keyframes dashoffset-move {
 						to {
-							stroke-dashoffset: -8;
+							stroke-dashoffset: -8; 
 						}
 					}
 				`}

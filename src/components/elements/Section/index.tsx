@@ -1,7 +1,7 @@
 import { Box, BoxProps } from '@/components/elements/Box';
 
 const SectionHeader = (props: BoxProps) => {
-  return <Box className="pb-4" {...props} />;
+  return <Box className="pb-2" {...props} />;
 };
 
 const SectionBody = (props: BoxProps) => {

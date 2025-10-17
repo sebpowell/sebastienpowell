@@ -56,5 +56,8 @@ export default async function PostPage({
 
   if (!post) return notFound();
 
+
+  console.log(post)
+
   return <BlogPost post={post} />;
 }

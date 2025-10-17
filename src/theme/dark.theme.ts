@@ -6,10 +6,10 @@ const darkTheme: Theme = {
   "background-default": neutral[1200],
   "background-surface": neutral[1100],
   "background-surface-subtle": neutral[1000],
-  "background-surface-interactive": neutral[900],
+  "background-surface-interactive": neutral[800],
 
-  "border-default": neutral[900],
-  "border-strong": neutral[700],
+  "border-default": neutral[800],
+  "border-strong": neutral[600],
 
   "text-strong": white,
   "text-body": neutral[300],

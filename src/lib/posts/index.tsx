@@ -3,26 +3,54 @@ import path from "path";
 import { sortBy } from "remeda";
 import { Post } from "@/interfaces/post.type";
 import matter from "gray-matter";
-import { serialize } from "next-mdx-remote-client/serialize";
 
+function isValidPostMetadata(data: any): data is Pick<Post, "title" | "date"> {
+  return (
+    typeof data === "object" &&
+    data !== null &&
+    typeof data.title === "string" &&
+    typeof data.date === "string"
+  );
+}
 
 const postsDirectory = path.join(process.cwd(), "src/content/posts");
 const fileExtension = ".mdx";
 
-export async function getPostMetadata(filePath: string): Promise<Frontmatter> {
-  const markdownWithMeta = fs.readFileSync(filePath, "utf8");
+export async function getPostMetadata(
+  filePath: string,
+): Promise<Pick<Post, "title" | "date">> {
+  try {
+    const markdownWithMeta = fs.readFileSync(filePath, "utf8");
 
-  const { data } = matter(markdownWithMeta);
+    const { data } = matter(markdownWithMeta);
 
-  return data;
+    if (!isValidPostMetadata(data)) {
+      throw new Error(
+        `Invalid frontmatter in ${filePath}. Expected title and date fields.`,
+      );
+    }
+
+    return {
+      title: data.title,
+      date: data.date,
+    };
+  } catch (error) {
+    console.error(`Error getting post metadata for ${filePath}:`, error);
+    throw error;
+  }
 }
 
 function getSlugFromFilename(filename: string) {
   return filename.replace(/\.mdx$/, "");
 }
 
-export async function getAllPosts(): Promise<Pick<Post, "title" | "slug">[]> {
+function getFullPathFromSlug(slug: string) {
+  return path.join(postsDirectory, `${slug}${fileExtension}`);
+}
+
+export async function getAllPosts(): Promise<Post[]> {
   const fileNames = fs.readdirSync(postsDirectory);
+
   const files = fileNames.filter((fileName) =>
     fileName.endsWith(fileExtension),
   );
@@ -31,13 +59,18 @@ export async function getAllPosts(): Promise<Pick<Post, "title" | "slug">[]> {
     files.map(async (fileName) => {
       const slug = getSlugFromFilename(fileName);
 
-      const fullPath = path.join(postsDirectory, fileName);
+      const fullPath = getFullPathFromSlug(slug);
 
       const metadata = await getPostMetadata(fullPath);
+
+      const markdownWithMeta = fs.readFileSync(fullPath, "utf8");
 
       return {
         ...metadata,
         slug,
+        source: markdownWithMeta,
+        previousPost: null,
+        nextPost: null,
       };
     }),
   );
@@ -45,42 +78,31 @@ export async function getAllPosts(): Promise<Pick<Post, "title" | "slug">[]> {
   return posts;
 }
 
-
-
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   try {
-    const fullPath = path.join(postsDirectory, `${slug}${fileExtension}`);
+    const fullPath = getFullPathFromSlug(slug);
 
     const markdownWithMeta = fs.readFileSync(fullPath, "utf8");
 
-    const { data, content } = matter(markdownWithMeta);
-
-  
-
-
-    const source = "Some **bold text** in MDX, with a component <Test />";
-
-  const mdxSource = await serialize({source});
-
-  
-  
-    // const previousPost = getPreviousPost(slug);
-    // const nextPost = getNextPost(slug);
+    const [metadata, previousPost, nextPost] = await Promise.all([
+      getPostMetadata(fullPath),
+      getPreviousPost(slug),
+      getNextPost(slug),
+    ]);
 
     return {
-      ...data,
+      ...metadata,
       slug,
       source: markdownWithMeta,
-      previousPost: null,
-      nextPost: null,
+      previousPost,
+      nextPost,
     };
   } catch (error) {
-    console.error(`Error loading post ${slug}:`, error);
     return null;
   }
 }
 
-export async function getAllPostsSortedByDate(): Promise<Post[]> {
+export async function getAllPostsSortedByDate() {
   const posts = await getAllPosts();
 
   return sortBy(posts, (post) => post.date);

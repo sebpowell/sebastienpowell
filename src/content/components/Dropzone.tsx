@@ -3,44 +3,42 @@
 import { AnimatedDashedBorder } from "@/components/elements/Animations/DashedBorder";
 import { Box } from "@/components/elements/Box";
 import { Interactive } from "@/components/elements/Markdown/Interactive";
-import { useElementSize } from "@/utils/useElementSize";
-
-import { File, Upload } from "lucide-react";
-import { useState } from "react";
+import { Upload } from "lucide-react";
 import { useMeasure } from "@uidotdev/usehooks";
-import { Icon } from "@/components/elements/Icon";
+import { useToggle } from "react-use";
 
 export function Dropzone() {
-  const [isHovering, setIsHovering] = useState(false);
+  const [isHovering, setIsHovering] = useToggle(false);
 
   const [ref, { width, height }] = useMeasure();
 
   return (
     <Interactive>
-      <div className="bg-background-surface-interactive rounded-xl p-1">
-        <div
+      <Box
+        className="group w-full rounded-xl bg-background-surface-interactive p-1 text-border-strong hover:text-purple-500"
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
+        <Box
           ref={ref}
-          className="text-border-strong relative flex cursor-pointer items-center gap-x-3 p-4 hover:text-purple-500"
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
+          className="relative flex cursor-pointer items-center justify-center gap-x-3 p-4"
         >
-          <Box className="text-text-strong">
-            <Upload className="size-5" />
-            <Box className="relative z-[2]">Drop your files here</Box>
+          <Box className="flex items-center gap-x-2 text-text-muted transition-all group-hover:text-purple-400">
+            <Upload className="size-4" />
+            <Box className="relative z-[2] text-sm">Drop your files here</Box>
           </Box>
 
           <AnimatedDashedBorder
-            svgWidth={width}
-            svgHeight={height}
+            width={width}
+            height={height}
             dashArray="4 4"
             strokeWidth={1}
-            borderRadius={10}
+            borderRadius={8}
             animationDuration={1}
             active={isHovering}
-            className="absolute inset-0"
           />
-        </div>
-      </div>
+        </Box>
+      </Box>
     </Interactive>
   );
 }

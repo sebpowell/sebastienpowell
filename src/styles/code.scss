@@ -1,0 +1,68 @@
+.code {
+  @apply text-text-body;
+
+  .token.tag,
+  .token.class-name,
+  .token.selector,
+  .token.selector .class,
+  .token.selector.class,
+  .token.function {
+    color: theme("colors.pink.400");
+  }
+
+  .token.attr-name,
+  .token.keyword,
+  .token.rule,
+  .token.pseudo-class,
+  .token.important,
+  .token.variable,
+  .token.builtin,
+  .token.symbol {
+    color: theme("colors.blue.300");
+  }
+
+  .token.module,
+  .token.type {
+    color: theme("colors.purple.300");
+  }
+
+  .token.attr-value {
+    color: theme("colors.blue.300");
+  }
+
+  .token.string {
+    color: theme("colors.orange.300");
+  }
+
+  .token.class {
+    color: theme("colors.teal.300");
+  }
+
+  .token.punctuation,
+  .token.attr-equals {
+    color: theme("colors.zinc.500");
+  }
+
+  .token.unit,
+  .language-css .token.function {
+    color: theme("colors.sky.200");
+  }
+
+  .token.property,
+  .token.operator,
+  .token.combinator {
+    color: theme("colors.green.400");
+  }
+
+  .token.number {
+    color: theme("colors.cyan.300");
+  }
+
+  .line-number::before {
+    display: inline-block;
+    text-align: right;
+    margin-right: 16px;
+    color: theme("colors.text-muted");
+    content: attr(line);
+  }
+}

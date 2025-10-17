@@ -1,18 +1,16 @@
-import { Box, BoxProps } from "@/components/elements/Box";
+import { Box } from "@/components/elements/Box";
 import { MarkdownCodeBlock } from "@/components/elements/Markdown/Code";
 import { Paragraph } from "@/components/elements/Paragraph";
 import { Dropzone } from "@/content/components/Dropzone";
 import { generateId } from "@/utils/generateId.util";
 import { isExternalLink } from "@/utils/isExternalLink.util";
 import { MDXComponents } from "mdx/types";
-import { HTMLMotionProps, motion } from "motion/react";
 import Link from "next/link";
-import { PropsWithChildren } from "react";
-
-
+import { Test } from "@/content/components/Accordion";
 
 export const mdxComponents = (components: MDXComponents): MDXComponents => {
   return {
+    ...components,
     a: (props) => {
       const { href, ...rest } = props;
 
@@ -49,15 +47,12 @@ export const mdxComponents = (components: MDXComponents): MDXComponents => {
       );
     },
     pre: (props) => {
-
-
-      console.log(props);
       return <MarkdownCodeBlock {...props} />;
     },
     p: (props) => {
       return <Paragraph {...props} />;
     },
-
     Dropzone,
+    Test,
   };
 };

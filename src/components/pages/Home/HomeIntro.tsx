@@ -7,17 +7,17 @@ import Image from "next/image";
 const HomeIntro = () => {
   return (
     <Box className="flex items-center gap-4">
-      <Box className="relative size-16 shrink-0 rounded-full">
+      <Box className="relative size-20 shrink-0 rounded-full">
         <Image
           src="/avatar.png"
           alt="Sebastien Powell"
           fill
-          sizes="5rem"
+          sizes="4rem"
           priority
         />
       </Box>
-      <Box className="space-y-2">
-        <Heading as="h1" className="leading-none text-text-strong" size="h1">
+      <Box className="space-y-1.5">
+        <Heading as="h1" className="leading-none text-text-strong" size="h2">
           Sebastien Powell
         </Heading>
         <Box className="leading-none text-text-muted">

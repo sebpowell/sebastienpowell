@@ -1,0 +1,20 @@
+---
+title: "Animating dashed borders with SVG"
+date: "2025-10-17"
+---
+
+For a recent project, I needed to create a dropzone component with an inset dashed border.
+
+I thought it would look cool if the border animated on hover.
+
+The design required precise control over the dash pattern, but the CSS `border` property offers limited flexibility. You can make it dashed and adjust its width, but you can't define the dash array.
+
+I tried a `linear-gradient` trick ([like this one](https://codepen.io/amit_sheen/pen/xxZeyjO)), but it doesn’t play nicely with `border-radius`.
+
+In the end, I used an SVG, which gives full control over both the dash pattern and corner radius. [This generator](https://kovart.github.io/dashed-border-generator/) came in handy when testing.
+
+The SVG is absolutely positioned as an overlay to fill the parent component. The animation runs only on hover, applied programmatically since `pointer-events: none` keeps the SVG from blocking interaction with underlying elements.
+
+Here is the final result:
+
+<Test />

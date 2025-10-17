@@ -15,7 +15,7 @@ export const HoverEffect = (props: BoxProps) => {
   return (
     <Box
       className={cn(
-        "absolute -inset-4 z-0 scale-95 opacity-0 transition group-hover:scale-100 group-hover:opacity-100",
+        "absolute z-0 scale-95 opacity-0 transition group-hover:scale-100 group-hover:opacity-100",
         className,
       )}
       {...rest}
@@ -29,17 +29,23 @@ const ArticleListItem = (props: { article: Post }) => {
   const [play] = useClickSound();
 
   return (
-    <Box className="group relative" onClick={() => play()}>
-      <HoverEffect className="rounded-lg" />
-      <Box className="relative">
-        <Box className="aspect-[4/3] rounded-[8px] border bg-neutral-800">
-          <Image src="/images/test.png" alt="test" width={300} height={300} className="object-cover" />
-        </Box>
-        <Box className="p-3 pb-2">
-          <Heading as="h3" size="h3" className="text-text-strong">
-            {article.title}
-          </Heading>
-          <Box>Date</Box>
+    <Box
+      className="group relative "
+      onClick={() => play()}
+    >
+      <HoverEffect className="bg-background-surface-interactive -inset-3 rounded-lg" />
+      <Box className="flex w-full items-center gap-x-6 relative">
+        <Box className="aspect-[4/3] w-[200px] bg-neutral-800" />
+        <Box className="relative">
+          <Box className="space-y-4">
+            <Box className="space-y-2">
+              <div>Dec 13, 2025</div>
+              <Heading as="h3" size="h3" className="text-text-strong">
+                {article.title}
+              </Heading>
+            </Box>
+            <div>Summary</div>
+          </Box>
         </Box>
       </Box>
     </Box>
@@ -50,7 +56,7 @@ export const ArticleList = (props: { articles: Post[] }) => {
   const { articles = [] } = props;
 
   return (
-    <Box className="grid grid-cols-12 gap-6">
+    <Box className="space-y-2">
       {articles.map((article) => {
         return (
           <Link
@@ -59,7 +65,6 @@ export const ArticleList = (props: { articles: Post[] }) => {
               routeParams: { handle: article.slug },
             })}
             key={article.slug}
-            className="col-span-6"
           >
             <TapScale>
               <ArticleListItem article={article} />
