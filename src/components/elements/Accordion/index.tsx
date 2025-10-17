@@ -4,29 +4,23 @@ import { cn } from "@/utils/cn.util";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 
 import * as React from "react";
-import { mergeRefs } from "react-merge-refs";
 
 const Accordion = AccordionPrimitive.Root;
 
-const AccordionItem = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, ...props }, ref) => (
-  <AccordionPrimitive.Item
-    ref={ref}
-    className={cn("border-b", className)}
-    {...props}
-  />
-));
-AccordionItem.displayName = "AccordionItem";
+const AccordionItem = ({
+  className,
+  ...props
+}: AccordionPrimitive.AccordionItemProps) => (
+  <AccordionPrimitive.Item className={cn("border-b", className)} {...props} />
+);
 
-const AccordionTrigger = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
+const AccordionTrigger = ({
+  className,
+  children,
+  ...props
+}: AccordionPrimitive.AccordionTriggerProps) => (
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
-      ref={ref}
       className={cn(
         "group flex flex-1 items-center justify-between py-4 text-left text-sm transition-all [&[data-state=open]>svg]:rotate-90",
         className,
@@ -40,27 +34,23 @@ const AccordionTrigger = React.forwardRef<
       </span>
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
-));
-AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
+);
 
-const AccordionContent = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->(({ className, children, ...props }, forwardedRef) => {
-  const contentRef = React.useRef<HTMLDivElement>(null);
-
+const AccordionContent = ({
+  className,
+  children,
+  ...props
+}: AccordionPrimitive.AccordionContentProps) => {
   const [height, setHeight] = React.useState<string>("0px");
 
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const localRef = React.useRef<HTMLElement>(null);
+  const elementRef = React.useRef<HTMLDivElement>(null);
 
-  const setRefs = React.useCallback(mergeRefs([localRef, forwardedRef]), [
-    forwardedRef,
-  ]);
+  const contentRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const element = localRef.current;
+    const element = elementRef.current;
     const content = contentRef.current;
 
     if (!element || !content) return;
@@ -100,7 +90,7 @@ const AccordionContent = React.forwardRef<
 
   return (
     <AccordionPrimitive.Content
-      ref={setRefs}
+      ref={elementRef}
       forceMount
       className={cn("overflow-hidden transition-all duration-300")}
       style={{
@@ -114,7 +104,6 @@ const AccordionContent = React.forwardRef<
       </div>
     </AccordionPrimitive.Content>
   );
-});
-AccordionContent.displayName = AccordionPrimitive.Content.displayName;
+};
 
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };

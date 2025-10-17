@@ -1,13 +1,12 @@
-import { LoginForm } from '@/components/elements/AuthModal';
-import { Avatar } from '@/components/elements/Avatar';
-import { Box, BoxProps } from '@/components/elements/Box';
-import { Button } from '@/components/elements/Button';
-import { Markdown } from '@/components/elements/Markdown';
-import { commentsService, type Comment as IComment } from '@/lib/comments';
-import { cn } from '@/utils/cn.util';
-import { createContext } from '@/utils/createContext.util';
-import { ReactNode, useEffect, useState } from 'react';
-import { useToggle } from 'react-use';
+import { LoginForm } from "@/components/elements/AuthModal";
+import { Avatar } from "@/components/elements/Avatar";
+import { Box, BoxProps } from "@/components/elements/Box";
+import { Button } from "@/components/elements/Button";
+import { commentsService, type Comment as IComment } from "@/lib/comments";
+import { cn } from "@/utils/cn.util";
+import { createContext } from "@/utils/createContext.util";
+import { ReactNode, useEffect, useState } from "react";
+import { useToggle } from "react-use";
 
 type CommentContextProps = {
   comment: IComment;
@@ -27,7 +26,7 @@ type CommentContextProps = {
 const [CommentContext, useCommentContext] =
   createContext<CommentContextProps>();
 
-type CommentContentProviderProps = Pick<CommentContextProps, 'comment'> & {
+type CommentContentProviderProps = Pick<CommentContextProps, "comment"> & {
   children: ReactNode;
 };
 const CommentContextProvider = (props: CommentContentProviderProps) => {
@@ -35,7 +34,7 @@ const CommentContextProvider = (props: CommentContentProviderProps) => {
 
   const { id } = comment;
 
-  const [reply, handleSetReply] = useState<string>('');
+  const [reply, handleSetReply] = useState<string>("");
 
   const [isReplyOpen, handleToggleReply] = useToggle(false);
 
@@ -45,14 +44,14 @@ const CommentContextProvider = (props: CommentContentProviderProps) => {
 
   const getDraftReply = localStorage.getItem(`draft_`);
 
-  useEffect(() => {}, [value]);
+  // useEffect(() => {}, [value]);
 
-  const handleDelete = async () => {
-    await commentsService.delete(id);
-  };
+  // const handleDelete = async () => {
+  //   await commentsService.delete(id);
+  // };
 
   const handleSubmitReply = async () => {
-    await commentsService.create({ test: '' });
+    await commentsService.create({ test: "" });
   };
 
   const ctx: CommentContextProps = {
@@ -81,7 +80,7 @@ const CommentHeader = () => {
     },
   } = useCommentContext();
 
-  const displayName = name || email || 'Anonymous';
+  const displayName = name || email || "Anonymous";
 
   return (
     <div className="flex h-8 items-center gap-x-1">
@@ -97,10 +96,10 @@ const CommentBody = () => {
     isEditing,
   } = useCommentContext();
 
-  return <Markdown content={comment} />;
+  return <>Test</>;
 };
 
-const Comment = (props: Pick<CommentContextProps, 'comment'>) => {
+const Comment = (props: Pick<CommentContextProps, "comment">) => {
   const { comment } = props;
 
   const { children } = comment;
@@ -129,12 +128,12 @@ const Comment = (props: Pick<CommentContextProps, 'comment'>) => {
   );
 };
 
-const CommentEditor = (props: BoxProps<'textarea'>) => {
+const CommentEditor = (props: BoxProps<"textarea">) => {
   const { className, ...rest } = props;
 
   return (
     <textarea
-      className={cn('min-h-10 flex-1 rounded-xl p-4 outline-none', className)}
+      className={cn("min-h-10 flex-1 rounded-xl p-4 outline-none", className)}
       placeholder="Comment..."
       {...rest}
     />
@@ -152,7 +151,7 @@ const CommentReply = (props: BoxProps) => {
   const { className, ...rest } = props;
 
   return (
-    <Box className={cn('flex-1 gap-x-3', className)} {...rest}>
+    <Box className={cn("flex-1 gap-x-3", className)} {...rest}>
       <div className="flex gap-x-3">
         <Avatar />
         <div>
@@ -233,21 +232,24 @@ const ThreadContextProvider = (props: { children: ReactNode }) => {
 
   const [comments] = useState<IComment[]>([
     {
-      author: { avatar_url: '', email: '', name: 'Jo' },
-      comment: 'Test sdfgsdfgsdfg dfsgdfsgd sfgsdg dsfgdsf gdsfg dsfgsdg s',
-      created_at: '',
+      id: "",
+      resource_id: { id: "", external_identifier: "" },
+      author: { id: "", avatar_url: "", email: "", name: "Jo" },
+      comment: "Test sdfgsdfgsdfg dfsgdfsgd sfgsdg dsfgdsf gdsfg dsfgsdg s",
+      created_at: "",
       parent_id: null,
       level: 0,
-      children: [
-        {
-          author: { avatar_url: '', email: '', name: 'Jo' },
-          comment: 'Test sdfgsdfgsdfg dfsgdfsgd sfgsdg dsfgdsf gdsfg dsfgsdg s',
-          created_at: '',
-          parent_id: null,
-          level: 1,
-          children: [],
-        },
-      ],
+      children: [],
+      // children: [
+      //   {
+      //     author: { id: "", avatar_url: "", email: "", name: "Jo" },
+      //     comment: "Test sdfgsdfgsdfg dfsgdfsgd sfgsdg dsfgdsf gdsfg dsfgsdg s",
+      //     created_at: "",
+      //     parent_id: null,
+      //     level: 1,
+      //     children: [],
+      //   },
+      // ],
     },
   ]);
 

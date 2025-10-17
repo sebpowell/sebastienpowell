@@ -58,7 +58,7 @@ const Button = (props: ButtonProps) => {
         className={cn(buttonBaseStyles(), className)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        whileTap={{ scale: 0.9 }}
+        // whileTap={{ scale: 0.9 }}
         {...rest}
       />
     </ButtonContext>

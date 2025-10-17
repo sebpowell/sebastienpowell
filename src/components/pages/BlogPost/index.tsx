@@ -2,12 +2,7 @@ import { Box } from "@/components/elements/Box";
 import { Heading } from "@/components/elements/Heading";
 import { mdxComponents } from "@/components/elements/Markdown/components";
 import { Post } from "@/interfaces/post.type";
-import { ArrowLeft, ArrowUpRightSquareIcon } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote-client/rsc";
-import Link from "next/link";
-import rehypeSlug from "rehype-slug";
-
-import rehypeCodeTitles from "rehype-code-titles";
 import rehypePrism from "rehype-prism-plus";
 import rehypeHighlightLines from "rehype-highlight-code-lines";
 
@@ -43,8 +38,6 @@ export const BlogPost = (props: { post: Post }) => {
             parseFrontmatter: true,
             mdxOptions: {
               rehypePlugins: [
-                rehypeSlug,
-                rehypeCodeTitles,
                 [
                   rehypePrism,
                   {

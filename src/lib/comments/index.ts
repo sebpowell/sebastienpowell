@@ -1,4 +1,4 @@
-const STORAGE = 'test';
+const STORAGE = "test";
 
 type Database = {
   authors: Author[];
@@ -30,8 +30,8 @@ export type Comment = {
 };
 
 enum SortOrder {
-  'oldest' = 'oldest',
-  'newest' = 'newest',
+  "oldest" = "oldest",
+  "newest" = "newest",
 }
 
 type CreateCommentRequest = {
@@ -45,7 +45,6 @@ type UpdateCommentRequest = {
 type GetManyRequest = {
   limit: number;
   offset: number;
-  sort;
 };
 
 type AuthenticateRequest = {
@@ -73,10 +72,10 @@ class CommentsService {
   delete() {
     const data = this.getData();
 
-    const updated: Model = {
-      ...data,
-      // "comments": data.comments.filter((item) => item.)
-    };
+    // const updated: Model = {
+    //   ...data,
+    //   // "comments": data.comments.filter((item) => item.)
+    // };
 
     // localStorage.setItem(STORAGE, {
     //     ...data,
