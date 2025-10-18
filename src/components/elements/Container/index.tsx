@@ -8,7 +8,7 @@ const Container = (props: ContainerProps) => {
 
   return (
     <Box
-      className={cn('mx-auto w-full max-w-[640px] px-4', className)}
+      className={cn('mx-auto w-full max-w-[680px] px-4', className)}
       {...rest}
     />
   );

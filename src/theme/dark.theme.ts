@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { neutral } from "../theme/palettes";
 import { Theme } from "@/theme/theme.type";
 import { black, white } from "tailwindcss/colors";
@@ -18,7 +19,7 @@ const darkTheme: Theme = {
   "shadow-image-thumb-hover": "rgba(00, 00, 00, 1)",
   "shadow-image-thumb-inset": "rgba(00, 00, 00, 1)",
 
-  "button-primary-text": neutral[100],
+  "button-primary-text": black,
   "button-primary-background": white,
   "button-secondary-background-hover": neutral[700],
 

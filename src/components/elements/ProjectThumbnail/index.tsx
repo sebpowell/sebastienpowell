@@ -1,5 +1,6 @@
-import { HoverEffect } from "@/components/elements/ArticleList";
+
 import { Box, BoxProps } from "@/components/elements/Box";
+import { HoverEffect } from "@/components/elements/Hover";
 import { cn } from "@/utils/cn.util";
 import { useClickSound } from "@/utils/useClickSound";
 import { motion } from "motion/react";
@@ -26,7 +27,7 @@ const Clickable = (props: BoxProps) => {
         }}
         {...rest}
       >
-        <HoverEffect />
+        <HoverEffect/>
         <Box className="relative">{children}</Box>
       </Box>
     </motion.div>

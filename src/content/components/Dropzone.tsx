@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { AnimatedDashedBorder } from "@/components/elements/Animations/DashedBorder";

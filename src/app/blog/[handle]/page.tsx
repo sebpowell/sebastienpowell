@@ -1,8 +1,10 @@
 import { BlogArticleRouteParams } from "@/app/blog/[handle]/routeType";
 import { BlogPost } from "@/components/pages/BlogPost";
-import { getAllPosts, getPostBySlug } from "@/lib/posts";
+import { getAllPosts, markdownProcessor } from "@/lib/posts";
 import { Metadata } from "next";
+
 import { $path } from "next-typesafe-url";
+import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -20,13 +22,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { handle } = await params;
 
-  const post = await getPostBySlug(handle);
+  const metadata = await markdownProcessor.getBlogPostMetadata(handle);
 
-  if (!post) {
+  if (!metadata) {
     notFound();
   }
 
-  const { title } = post;
+  const { title } = metadata.metadata;
 
   return {
     title: `${title} | Sebastien Powell`,
@@ -52,12 +54,26 @@ export default async function PostPage({
 }) {
   const { handle } = await params;
 
-  const post = await getPostBySlug(handle);
+  const BlogMarkdown = dynamic(
+    () => import("@/content/posts/" + handle + ".mdx"),
+  );
 
-  if (!post) return notFound();
+  if (!BlogMarkdown) return notFound();
 
+  const metadata = await markdownProcessor.getBlogPostMetadata(handle);
 
-  console.log(post)
-
-  return <BlogPost post={post} />;
+  return (
+    <BlogPost
+      post={{
+        title: metadata.metadata.title,
+        date: "2025-10-17",
+        slug: "test",
+        source: BlogMarkdown,
+        previousPost: null,
+        nextPost: null,
+        tags: [],
+        capabilities: [],
+      }}
+    />
+  );
 }

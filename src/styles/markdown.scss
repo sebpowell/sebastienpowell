@@ -12,11 +12,11 @@
   }
 
   a {
-    @apply text-text-strong underline-offset-4 hover:underline;
+    @apply text-text-strong underline-offset-4 underline;
   }
 
   p > code {
-    @apply whitespace-nowrap rounded-md border border-neutral-200 px-[5px] py-[2px] font-mono text-xs;
+    @apply whitespace-nowrap rounded-md border px-[5px] py-[2px] font-mono text-sm;
   }
 
   > h2,

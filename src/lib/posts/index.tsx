@@ -3,50 +3,58 @@ import path from "path";
 import { sortBy } from "remeda";
 import { Post } from "@/interfaces/post.type";
 import matter from "gray-matter";
+import { validateTags, validateCapabilities } from "./validateEnums";
+import { notFound } from "next/navigation";
 
-function isValidPostMetadata(data: any): data is Pick<Post, "title" | "date"> {
-  return (
-    typeof data === "object" &&
-    data !== null &&
-    typeof data.title === "string" &&
-    typeof data.date === "string"
-  );
-}
+class MarkdownProcessor {
+  getSlugFromFilename(filename: string) {
+    return filename.replace(/\.mdx$/, "");
+  }
 
-const postsDirectory = path.join(process.cwd(), "src/content/posts");
-const fileExtension = ".mdx";
+  getFullPathFromSlug(slug: string) {
+    return path.join(postsDirectory, `${slug}${fileExtension}`);
+  }
 
-export async function getPostMetadata(
-  filePath: string,
-): Promise<Pick<Post, "title" | "date">> {
-  try {
-    const markdownWithMeta = fs.readFileSync(filePath, "utf8");
+  async getBlogPostMetadata(slug: string) {
+    try {
+      const file = await import(`../../content/posts/${slug}.mdx`);
 
-    const { data } = matter(markdownWithMeta);
+      if (file?.metadata) {
+        if (!file.metadata.title || !file.metadata.description) {
+          throw new Error(`Missing some required metadata fields in: ${slug}`);
+        }
 
-    if (!isValidPostMetadata(data)) {
-      throw new Error(
-        `Invalid frontmatter in ${filePath}. Expected title and date fields.`,
-      );
+        return {
+          slug,
+          metadata: file.metadata,
+        };
+      } else {
+        throw new Error(`Unable to find metadata for ${slug}.mdx`);
+      }
+    } catch (error: any) {
+      console.error("Error", error?.message);
+      return notFound();
     }
-
-    return {
-      title: data.title,
-      date: data.date,
-    };
-  } catch (error) {
-    console.error(`Error getting post metadata for ${filePath}:`, error);
-    throw error;
   }
 }
 
-function getSlugFromFilename(filename: string) {
-  return filename.replace(/\.mdx$/, "");
-}
+export const markdownProcessor = new MarkdownProcessor();
 
-function getFullPathFromSlug(slug: string) {
-  return path.join(postsDirectory, `${slug}${fileExtension}`);
-}
+// function isValidPostMetadata(
+//   data: any,
+// ): data is Pick<Post, "title" | "date" | "tags" | "capabilities"> {
+//   return (
+//     typeof data === "object" &&
+//     data !== null &&
+//     typeof data.title === "string" &&
+//     typeof data.date === "string" &&
+//     (data.tags === undefined || Array.isArray(data.tags)) &&
+//     (data.capabilities === undefined || Array.isArray(data.capabilities))
+//   );
+// }
+
+const postsDirectory = path.join(process.cwd(), "src/content/posts");
+const fileExtension = ".mdx";
 
 export async function getAllPosts(): Promise<Post[]> {
   const fileNames = fs.readdirSync(postsDirectory);
@@ -57,18 +65,19 @@ export async function getAllPosts(): Promise<Post[]> {
 
   const posts = await Promise.all(
     files.map(async (fileName) => {
-      const slug = getSlugFromFilename(fileName);
+      const slug = markdownProcessor.getSlugFromFilename(fileName);
 
-      const fullPath = getFullPathFromSlug(slug);
+      
 
-      const metadata = await getPostMetadata(fullPath);
+      const metadata = await markdownProcessor.getBlogPostMetadata(slug);
 
-      const markdownWithMeta = fs.readFileSync(fullPath, "utf8");
+      
+
+      
 
       return {
-        ...metadata,
+        ...metadata.metadata,
         slug,
-        source: markdownWithMeta,
         previousPost: null,
         nextPost: null,
       };
@@ -78,65 +87,65 @@ export async function getAllPosts(): Promise<Post[]> {
   return posts;
 }
 
-export async function getPostBySlug(slug: string): Promise<Post | null> {
-  try {
-    const fullPath = getFullPathFromSlug(slug);
+// export async function getPostBySlug(slug: string): Promise<Post | null> {
+//   try {
+//     const fullPath = getFullPathFromSlug(slug);
 
-    const markdownWithMeta = fs.readFileSync(fullPath, "utf8");
+//     const markdownWithMeta = fs.readFileSync(fullPath, "utf8");
 
-    const [metadata, previousPost, nextPost] = await Promise.all([
-      getPostMetadata(fullPath),
-      getPreviousPost(slug),
-      getNextPost(slug),
-    ]);
+//     const [metadata] = await Promise.all([
+//       getPostMetadata(fullPath),
+//       // getPreviousPost(slug),
+//       // getNextPost(slug),
+//     ]);
 
-    return {
-      ...metadata,
-      slug,
-      source: markdownWithMeta,
-      previousPost,
-      nextPost,
-    };
-  } catch (error) {
-    return null;
-  }
-}
+//     return {
+//       ...metadata,
+//       slug,
+//       source: markdownWithMeta,
+//       previousPost: null,
+//       nextPost: null,
+//     };
+//   } catch (error) {
+//     return null;
+//   }
+// }
 
-export async function getAllPostsSortedByDate() {
-  const posts = await getAllPosts();
+// export async function getAllPostsSortedByDate() {
+//   const posts = await getAllPosts();
 
-  return sortBy(posts, (post) => post.date);
-}
+//   return sortBy(posts, (post) => post.date);
+// }
 
-export async function getNextPost(currentSlug: string): Promise<Post | null> {
-  const sortedPosts = await getAllPostsSortedByDate();
+// export async function getNextPost(currentSlug: string): Promise<Post | null> {
+//   const sortedPosts = await getAllPostsSortedByDate();
 
-  const currentIndex = sortedPosts.findIndex(
-    (post) => post.slug === currentSlug,
-  );
+//   const currentIndex = sortedPosts.findIndex(
+//     (post) => post.slug === currentSlug,
+//   );
 
-  if (currentIndex === -1 || currentIndex === sortedPosts.length - 1) {
-    return null;
-  }
+//   if (currentIndex === -1 || currentIndex === sortedPosts.length - 1) {
+//     return null;
+//   }
 
-  const nextPost = sortedPosts[currentIndex + 1];
+//   const nextPost = sortedPosts[currentIndex + 1];
 
-  return nextPost;
-}
+//   return nextPost;
+// }
 
-export async function getPreviousPost(
-  currentSlug: string,
-): Promise<Post | null> {
-  const sortedPosts = await getAllPostsSortedByDate();
-  const currentIndex = sortedPosts.findIndex(
-    (post) => post.slug === currentSlug,
-  );
+// export async function getPreviousPost(
+//   currentSlug: string,
+// ): Promise<Post | null> {
+//   const sortedPosts = await getAllPostsSortedByDate();
+//   const currentIndex = sortedPosts.findIndex(
+//     (post) => post.slug === currentSlug,
+//   );
 
-  if (currentIndex === -1 || currentIndex === 0) {
-    return null;
-  }
+//   if (currentIndex === -1 || currentIndex === 0) {
+//     return null;
+//   }
 
-  const previousPost = sortedPosts[currentIndex - 1];
+//   const previousPost = sortedPosts[currentIndex - 1];
 
-  return previousPost;
-}
+//   return previousPost;
+// }

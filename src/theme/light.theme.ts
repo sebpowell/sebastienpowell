@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Theme } from "@/theme/theme.type";
 import { black, neutral, white } from "tailwindcss/colors";
 

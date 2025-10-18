@@ -1,6 +1,7 @@
-import { HoverEffect } from "@/components/elements/ArticleList";
+
 import { Box } from "@/components/elements/Box";
 import { Heading } from "@/components/elements/Heading";
+import { HoverEffect } from "@/components/elements/Hover";
 import { Link } from "@/components/elements/Link";
 // import { Markdown } from '@/components/elements/Markdown';
 import { ProjectThumbnail } from "@/components/elements/ProjectThumbnail";
@@ -44,7 +45,7 @@ const EngagementListItem = (props: EngagementProps) => {
             href={`/work/${slug}`}
             className="group relative block w-full"
           >
-            <HoverEffect className="bg-neutral-800" />
+            <HoverEffect className="-inset-2 bg-background-surface-interactive rounded-[18px]" />
             <ProjectThumbnail alt={title} slug={slug} />
           </NextLink>
         )}

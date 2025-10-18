@@ -41,15 +41,19 @@ const HomePage = ({ articles }: { articles: Post[] }) => {
         </div>
       ),
     },
-    // {
-    //   id: SectionIds.experience,
-    //   title: "Experience",
-    //   component: <HomeExperience />,
-    // },
+    {
+      id: SectionIds.experience,
+      title: "Experience",
+      component: <HomeExperience />,
+    },
     {
       id: SectionIds.blog,
-      title: "Components",
-      component: <Box className="pt-4"><ArticleList articles={articles} /></Box>,
+      title: "Writing",
+      component: (
+        <Box className="pt-4">
+          <ArticleList articles={articles} />
+        </Box>
+      ),
     },
     {
       id: SectionIds.connect,
@@ -61,7 +65,7 @@ const HomePage = ({ articles }: { articles: Post[] }) => {
   ];
 
   return (
-    <>
+    <Box className="py-24">
       {/* This is needed if the user returns to the page */}
       <WorkSampleDialog />
       <FadeIn className="space-y-12">
@@ -86,7 +90,7 @@ const HomePage = ({ articles }: { articles: Post[] }) => {
           })}
         </FadeInItems>
       </FadeIn>
-    </>
+    </Box>
   );
 };
 

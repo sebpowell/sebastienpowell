@@ -211,15 +211,15 @@ const WorkSampleDialog = () => {
             <VisuallyHidden.Root>
               <DialogDescription>{selected.description}</DialogDescription>
             </VisuallyHidden.Root>
-            {/* <Box>
+            <Box>
               <Box className="sticky top-8 z-10 hidden justify-end xl:flex">
                 <WorkSampleClose />
               </Box>
-            </Box> */}
+            </Box>
 
             <Box className="w-full p-4 pt-24 lg:p-8 lg:pt-32 lg:pb-32">
               <Box className="mx-auto max-w-[1440px] space-y-12">
-                {/* <WorkSampleSidebar /> */}
+                <WorkSampleSidebar />
                 {/* <Box className="space-y-4 xl:space-y-8"> */}
                   {Array.from({ length: shots }, (_, x) => {
                     return <WorkSampleImage key={x} number={x + 1} />;

@@ -9,5 +9,5 @@ export const TapScale = <T extends keyof HTMLElementTagNameMap>(
 
   const MotionComponent = motion[as as keyof typeof motion] as any;
 
-  return <Box as={MotionComponent} whileTap={{ scale: 0.9 }} {...rest} />;
+  return <Box as={MotionComponent} whileTap={{ scale: 0.98 }} {...rest} />;
 };

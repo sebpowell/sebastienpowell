@@ -1,3 +1,13 @@
+import { Skills } from "@/enum/skills.enum";
+import { Capabilities } from "@/enum/capabilities.enum"; 
+
+export const metadata = {
+  title: "Yeeha",
+  description: "A short MDX blog post.",
+  capabilities: [Capabilities.frontend, Capabilities.design]
+};
+
+
 ---
 title: "Animating dashed borders with SVG"
 date: "2025-10-17"
@@ -16,8 +26,6 @@ In the end, I used an SVG, which gives full control over both the dash pattern a
 The SVG is absolutely positioned as an overlay to fill the parent component. The animation runs only on hover, applied programmatically since `pointer-events: none` keeps the SVG from blocking interaction with underlying elements.
 
 Here is the final result:
-
-<Test />
 
 <Dropzone />
 

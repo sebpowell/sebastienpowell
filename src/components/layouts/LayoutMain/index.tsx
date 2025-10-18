@@ -17,10 +17,10 @@ const LayoutMain = (props: LayoutMainProps) => {
       id={LAYOUT_WRAPPER_ID}
       className="flex flex-1 flex-col transition-all duration-300"
     >
-      {/* <Box className="from-red-500 via-transparent bg-gradient-to-b pointer-events-none fixed z-50 h-48 w-full select-none to-transparent opacity-95" /> */}
+      <Box className="pointer-events-none fixed z-50 h-24 w-full select-none bg-gradient-to-b from-background-surface opacity-95" />
       <Box
         as="main"
-        className="relative z-10 flex flex-1 flex-col rounded-b-3xl bg-background-surface py-12 shadow-sm transition-transform duration-300"
+        className="relative z-10 flex flex-1 flex-col rounded-b-3xl bg-background-surface shadow-sm"
       >
         <Container className="flex flex-1 flex-col">{children}</Container>
       </Box>

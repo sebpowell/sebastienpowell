@@ -1,5 +1,6 @@
 .code {
   @apply text-text-body;
+  @apply py-4;
 
   .token.tag,
   .token.class-name,
@@ -7,7 +8,7 @@
   .token.selector .class,
   .token.selector.class,
   .token.function {
-    color: theme("colors.pink.400");
+    color: theme("colors.yellow.100");
   }
 
   .token.attr-name,
@@ -27,21 +28,22 @@
   }
 
   .token.attr-value {
-    color: theme("colors.blue.300");
+    color: theme("colors.red.300");
   }
 
   .token.string {
     color: theme("colors.orange.300");
   }
 
-  .token.class {
+  .token.class-name {
     color: theme("colors.teal.300");
   }
 
-  .token.punctuation,
-  .token.attr-equals {
-    color: theme("colors.zinc.500");
+  .token.punctuation {
+    color: theme("colors.blue.200");
   }
+
+  // .token.attr-equals
 
   .token.unit,
   .language-css .token.function {
@@ -51,7 +53,7 @@
   .token.property,
   .token.operator,
   .token.combinator {
-    color: theme("colors.green.400");
+    color: theme("colors.blue.400");
   }
 
   .token.number {
@@ -59,10 +61,24 @@
   }
 
   .line-number::before {
-    display: inline-block;
-    text-align: right;
-    margin-right: 16px;
-    color: theme("colors.text-muted");
+    @apply bg-background-surface-subtle;
+    // display: inline-block;
+    // text-align: right;
+    // margin-right: 16px;
+    // color: theme("colors.text-muted");
+    // content: attr(line);
+
+
+    // font-size: var(--text-sm);
+    
     content: attr(line);
+    width: 68px;
+    padding-right: 24px;
+    text-align: right;
+    color: theme("colors.text-muted");
+  
+    display: inline-block;
+    position: sticky;
+    left: 0;
   }
 }

@@ -4,6 +4,7 @@ import { Box } from "@/components/elements/Box";
 import { useEffect, useRef, useState } from "react";
 import { useCopyToClipboard, useTimeoutFn, useToggle } from "react-use";
 import "../../../styles/code.scss";
+import { cn } from "@/utils/cn.util";
 
 const MarkdownCodeBlock = (
   props: React.DetailedHTMLProps<
@@ -21,7 +22,7 @@ const MarkdownCodeBlock = (
 
   const language = /language-(\w+)/.exec(className || "")?.[1] ?? null;
 
-  const maxHeight = 500;
+  const maxHeight = 300;
 
   const [state, copyToClipboard] = useCopyToClipboard();
 
@@ -62,6 +63,9 @@ const MarkdownCodeBlock = (
         className="flex items-center justify-between px-3 py-2 text-xs"
       >
         <Box className="text-text-muted">{language}</Box>
+        <Box onClick={() => setIsExpanded(false)}>
+          Collapse
+        </Box>
         <Box
           as="button"
           className="rounded-full bg-background-surface-interactive px-2.5 py-1.5 leading-none text-text-muted hover:text-text-strong"
@@ -74,11 +78,22 @@ const MarkdownCodeBlock = (
         <Box
           as="pre"
           ref={preRef}
-          className="code relative overflow-scroll whitespace-pre bg-background-surface-subtle p-3 text-[13px]"
+          className={cn(
+            "code relative whitespace-pre bg-background-surface-subtle text-[13px]",
+            isExpanded ? "" : `overflow-hidden`,
+          )}
           style={{ maxHeight: isExpanded ? "none" : maxHeight }}
         >
           {children}
         </Box>
+        {!isExpanded && (
+          <Box
+            onClick={() => setIsExpanded(true)}
+            className="tet-center absolute bottom-0 left-0 right-0 flex h-16 items-center justify-center bg-gradient-to-t from-background-surface-subtle to-transparent text-sm"
+          >
+            Expand
+          </Box>
+        )}
       </Box>
     </Box>
   );

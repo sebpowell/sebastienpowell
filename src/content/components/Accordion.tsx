@@ -29,7 +29,7 @@ export const Test = () => {
   ];
 
   return (
-    <Interactive>
+    <Interactive className="p-12">
       <Accordion type="single" collapsible>
         {items.map((item) => {
           const { id, title, content } = item;

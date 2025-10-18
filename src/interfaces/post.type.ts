@@ -1,8 +1,12 @@
+import { ComponentType } from "react";
+
 export interface PostBase {
   title: string;
   date: string;
   slug: string;
-  source: string;
+  source: ComponentType<{}>,
+  tags?: string[];
+  capabilities?: string[];
 }
 
 export interface Post extends PostBase {

@@ -2,6 +2,7 @@
 
 import { cn } from "@/utils/cn.util";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
+import { Minus, Plus } from "lucide-react";
 
 import * as React from "react";
 
@@ -22,15 +23,15 @@ const AccordionTrigger = ({
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       className={cn(
-        "group flex flex-1 items-center justify-between py-4 text-left text-sm transition-all [&[data-state=open]>svg]:rotate-90",
+        "group flex flex-1 items-center justify-between py-4 text-left transition-all [&[data-state=open]>svg]:rotate-90",
         className,
       )}
       {...props}
     >
       {children}
-      <span className="ml-2 flex items-center">
-        <span className="group-data-[state=open]:hidden">+</span>
-        <span className="hidden group-data-[state=open]:inline">_</span>
+      <span className="flex items-center">
+        <Plus className="group-data-[state=open]:hidden" />
+        <Minus className="hidden group-data-[state=open]:inline" />
       </span>
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
@@ -99,7 +100,7 @@ const AccordionContent = ({
       }}
       {...props}
     >
-      <div ref={contentRef} className={cn("pb-4 pt-0 text-sm", className)}>
+      <div ref={contentRef} className={cn("pb-4 pt-0", className)}>
         {children}
       </div>
     </AccordionPrimitive.Content>
