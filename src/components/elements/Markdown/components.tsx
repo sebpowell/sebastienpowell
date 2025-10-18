@@ -11,9 +11,26 @@ import { Tabs } from "@/content/components/Tabs";
 import { Grid } from "@/content/components/Grid";
 import { ButtonText } from "@/content/components/ButtonText";
 import { ParagraphScroll } from "@/content/components/ParagraphScroll";
+import Image from "next/image";
 export const mdxComponents = (components: MDXComponents): MDXComponents => {
   return {
     ...components,
+    img: (props) => {
+      const { src, alt } = props;
+      return (
+        <Box className="relative overflow-hidden rounded-2xl bg-black/70">
+          <Image
+            src={src}
+            alt={alt}
+            width={2000}
+            height={1333}
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 1440px"
+            priority
+          />
+        </Box>
+      );
+    },
     a: (props) => {
       const { href, ...rest } = props;
 

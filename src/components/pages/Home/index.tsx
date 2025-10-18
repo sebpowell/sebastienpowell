@@ -17,6 +17,8 @@ import { HomeExperience } from "@/components/pages/Home/HomeExperience";
 import { Post } from "@/interfaces/post.type";
 import { ArticleList } from "@/components/elements/ArticleList";
 import { Box } from "@/components/elements/Box";
+import { Container } from "@/components/elements/Container";
+import { Engagement } from "@/lib/work";
 
 enum SectionIds {
   "about" = "about",
@@ -25,7 +27,13 @@ enum SectionIds {
   "connect" = "connect",
 }
 
-const HomePage = ({ articles }: { articles: Post[] }) => {
+const HomePage = ({
+  articles,
+  work,
+}: {
+  articles: Post[];
+  work: Engagement[];
+}) => {
   const sections: {
     id: SectionIds;
     title: string;
@@ -44,7 +52,7 @@ const HomePage = ({ articles }: { articles: Post[] }) => {
     {
       id: SectionIds.experience,
       title: "Experience",
-      component: <HomeExperience />,
+      component: <HomeExperience work={work} />,
     },
     {
       id: SectionIds.blog,
@@ -65,32 +73,34 @@ const HomePage = ({ articles }: { articles: Post[] }) => {
   ];
 
   return (
-    <Box className="py-24">
-      {/* This is needed if the user returns to the page */}
-      <WorkSampleDialog />
-      <FadeIn className="space-y-12">
-        <FadeInItems>
-          <HomeIntro />
-          {sections.map((section, i) => {
-            const { id, title, component, description } = section;
+    <Container className="flex flex-1 flex-col">
+      <Box className="py-24">
+        {/* This is needed if the user returns to the page */}
+        <WorkSampleDialog />
+        <FadeIn className="space-y-12">
+          <FadeInItems>
+            <HomeIntro />
+            {sections.map((section, i) => {
+              const { id, title, component, description } = section;
 
-            return (
-              <Section key={i} id={id}>
-                <SectionHeader>
-                  <Heading as="h2" size="h2" className="text-text-strong">
-                    {title}
-                  </Heading>
-                </SectionHeader>
-                <SectionBody className="space-y-4">
-                  {description && <Paragraph>{description}</Paragraph>}
-                  {component}
-                </SectionBody>
-              </Section>
-            );
-          })}
-        </FadeInItems>
-      </FadeIn>
-    </Box>
+              return (
+                <Section key={i} id={id}>
+                  <SectionHeader>
+                    <Heading as="h2" size="h2" className="text-text-strong">
+                      {title}
+                    </Heading>
+                  </SectionHeader>
+                  <SectionBody className="space-y-4">
+                    {description && <Paragraph>{description}</Paragraph>}
+                    {component}
+                  </SectionBody>
+                </Section>
+              );
+            })}
+          </FadeInItems>
+        </FadeIn>
+      </Box>
+    </Container>
   );
 };
 

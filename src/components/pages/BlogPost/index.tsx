@@ -1,10 +1,6 @@
 import { Box, BoxProps } from "@/components/elements/Box";
 import { Heading } from "@/components/elements/Heading";
-import { mdxComponents } from "@/components/elements/Markdown/components";
 import { Post, PostBase } from "@/interfaces/post.type";
-import { MDXRemote } from "next-mdx-remote-client/rsc";
-import rehypePrism from "rehype-prism-plus";
-import rehypeHighlightLines from "rehype-highlight-code-lines";
 import Link from "next/link";
 import { cn } from "@/utils/cn.util";
 import { Undo2 } from "lucide-react";
@@ -105,28 +101,7 @@ export const BlogPost = (props: { post: Post }) => {
       <BlogPostHeader title={post.title} date={post.date} readingTime={0} />
       <Box className="space-y-12">
         <Box as="main" className="markdown">
-
           {createElement(source)}
-          {/* <MDXRemote
-            source={source}
-            components={mdxComponents({})}
-            options={{
-              parseFrontmatter: true,
-              mdxOptions: {
-                rehypePlugins: [
-                  [
-                    rehypePrism,
-                    {
-                      showLineNumbers: true,
-                      ignoreMissing: true,
-                      plugins: ["line-numbers", "show-language"],
-                    },
-                  ],
-                  rehypeHighlightLines,
-                ],
-              },
-            }}
-          /> */}
         </Box>
         <Separator />
         <BlogPostFooter previousPost={previousPost} nextPost={nextPost} />

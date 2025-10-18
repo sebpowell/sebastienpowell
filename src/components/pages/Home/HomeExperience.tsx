@@ -1,24 +1,20 @@
-
 import { Box } from "@/components/elements/Box";
 import { Heading } from "@/components/elements/Heading";
 import { HoverEffect } from "@/components/elements/Hover";
 import { Link } from "@/components/elements/Link";
-// import { Markdown } from '@/components/elements/Markdown';
 import { ProjectThumbnail } from "@/components/elements/ProjectThumbnail";
-import { useAppContext } from "@/contexts/app.context";
-import { Engagement } from "@/interfaces/engagement.type";
+import { Engagement } from "@/lib/work";
 import NextLink from "next/link";
 
 type EngagementProps = Engagement;
 
 const EngagementListItem = (props: EngagementProps) => {
-  const { title, description, start, end, href, capabilities, shots, slug } =
-    props;
+  const { title, description, cover, href, capabilities = [], slug } = props;
 
   return (
     <Box className="flex flex-col gap-3 lg:flex-row">
       <Box className="lg:w-[150px]">
-        {start === end ? end : `${start}—${end}`}
+        {/* {start === end ? end : `${start}—${end}`} */}
       </Box>
 
       <Box className="flex-1 space-y-6">
@@ -35,18 +31,20 @@ const EngagementListItem = (props: EngagementProps) => {
                 {title}
               </Link>
             </Heading>
-            <Box className="text-text-muted leading-none">{capabilities.join(", ")}</Box>
+            <Box className="leading-none text-text-muted">
+              {capabilities.join(", ")}
+            </Box>
           </Box>
           <Box>{description}</Box>
         </Box>
 
-        {shots > 0 && (
+        {cover && (
           <NextLink
             href={`/work/${slug}`}
             className="group relative block w-full"
           >
-            <HoverEffect className="-inset-2 bg-background-surface-interactive rounded-[18px]" />
-            <ProjectThumbnail alt={title} slug={slug} />
+            <HoverEffect className="-inset-2 rounded-[18px] bg-background-surface-interactive" />
+            <ProjectThumbnail alt={title} src={cover} />
           </NextLink>
         )}
       </Box>
@@ -54,12 +52,12 @@ const EngagementListItem = (props: EngagementProps) => {
   );
 };
 
-const HomeExperience = () => {
-  const { engagements } = useAppContext();
+const HomeExperience = ({ work = [] }: { work: Engagement[] }) => {
 
+  console.log(work);
   return (
     <Box className="space-y-8">
-      {engagements.map((engagement, i) => {
+      {work.map((engagement, i) => {
         return <EngagementListItem {...engagement} key={i} />;
       })}
     </Box>

@@ -1,15 +1,17 @@
 import { BlogArticleRouteParams } from "@/app/blog/[handle]/routeType";
-import { BlogPost } from "@/components/pages/BlogPost";
-import { markdownProcessor } from "@/lib/markdown/markdown-processor.service";
-import { postsService } from "@/lib/posts";
+import { Box } from "@/components/elements/Box";
+import { Container } from "@/components/elements/Container";
+import { WorkSampleContent } from "@/components/elements/WorkSampleContent";
+import { workService } from "@/lib/work";
 import { Metadata } from "next";
 
 import { $path } from "next-typesafe-url";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const posts = await postsService.getAllPosts();
+  const posts = await workService.getAllEntries();
 
   return posts.map((post) => ({
     handle: post.slug,
@@ -23,13 +25,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { handle } = await params;
 
-  const metadata = await postsService.getBlogPostMetadata(handle);
+  const metadata = await workService.getEntryMetadata(handle);
 
   if (!metadata) {
     notFound();
   }
 
-  const { title } = metadata.metadata;
+  const { title } = metadata;
 
   return {
     title: `${title} | Sebastien Powell`,
@@ -39,7 +41,7 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       url: $path({
-        route: "/blog/[handle]",
+        route: "/work/[handle]",
         routeParams: {
           handle,
         },
@@ -55,26 +57,19 @@ export default async function PostPage({
 }) {
   const { handle } = await params;
 
-  const BlogMarkdown = dynamic(
-    () => import("@/content/posts/" + handle + ".mdx"),
-  );
+  const Work = dynamic(() => import("@/content/work/" + handle + ".mdx"));
 
-  if (!BlogMarkdown) return notFound();
+  if (!Work) return notFound();
 
-  const metadata = await postsService.getBlogPostMetadata(handle);
+  const metadata = await workService.getEntryMetadata(handle);
 
   return (
-    <BlogPost
-      post={{
-        title: metadata.metadata.title,
-        date: "2025-10-17",
-        slug: "test",
-        source: BlogMarkdown,
-        previousPost: null,
-        nextPost: null,
-        tags: [],
-        capabilities: [],
+    <WorkSampleContent
+      work={{
+        ...metadata,
       }}
-    />
+    >
+      <Work />
+    </WorkSampleContent>
   );
 }

@@ -10,10 +10,11 @@ declare module "@@@next-typesafe-url" {
 
   interface DynamicRouter {
     "/blog/[handle]": InferRoute<import("./src/app/blog/[handle]/routeType").RouteType>;
+    "/work/[handle]": InferRoute<import("./src/app/work/[handle]/routeType").RouteType>;
   }
 
   interface StaticRouter {
+    "/blog": StaticRoute;
     "/": StaticRoute;
-    "/work/[slug]": StaticRoute;
   }
 }

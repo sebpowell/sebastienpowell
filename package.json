@@ -44,6 +44,7 @@
     "react-use": "^17.6.0",
     "rehype-highlight-code-lines": "^1.2.0",
     "rehype-prism-plus": "^2.0.1",
+    "rehype-unwrap-images": "^1.0.0",
     "remeda": "^2.21.2",
     "sass": "^1.85.1",
     "tailwind-merge": "^2.5.5",

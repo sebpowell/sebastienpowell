@@ -1,28 +1,11 @@
-'use client';
-import { AppContextProvider } from '@/contexts/app.context';
-import { Themes } from '@/theme/themes.enum';
-import { ThemeProvider } from 'next-themes';
-import { ReactNode, useEffect } from 'react';
+"use client";
+import { Themes } from "@/theme/themes.enum";
+import { useViewportHeight } from "@/utils/useViewportHeight";
+import { ThemeProvider } from "next-themes";
+import { ReactNode } from "react";
 
 type ProvidersProps = {
   children: ReactNode;
-};
-
-const useViewportHeight = () => {
-  useEffect(() => {
-    const setVh = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
-
-    setVh();
-
-    window.addEventListener('resize', setVh);
-
-    return () => {
-      window.removeEventListener('resize', setVh);
-    };
-  }, []);
 };
 
 const Providers = (props: ProvidersProps) => {
@@ -32,12 +15,8 @@ const Providers = (props: ProvidersProps) => {
   useViewportHeight();
 
   return (
-    <ThemeProvider
-      enableSystem={false}
-      defaultTheme={Themes.light}
-      themes={Object.values(Themes)}
-    >
-      <AppContextProvider>{children}</AppContextProvider>
+    <ThemeProvider defaultTheme={Themes.light} themes={Object.values(Themes)}>
+      {children}
     </ThemeProvider>
   );
 };
