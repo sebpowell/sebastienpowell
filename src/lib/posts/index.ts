@@ -1,12 +1,21 @@
 import path from "path";
 import { sortBy } from "remeda";
-import { Post } from "@/interfaces/post.type";
 import {
   markdownProcessor,
   MarkdownProcessor,
 } from "@/lib/markdown/markdown-processor.service";
+import z from "zod";
 
 const postsDirectory = path.join(process.cwd(), "src/content/posts");
+
+export const postSchema = z.object({
+  title: z.string(),
+  slug: z.string(),
+  description: z.string(),
+  date: z.string(),
+});
+
+export type Post = z.infer<typeof postSchema>;
 
 class PostsService {
   private readonly markdownProcessor: MarkdownProcessor;
@@ -25,8 +34,7 @@ class PostsService {
         const metadata = await this.getBlogPostMetadata(slug);
 
         return {
-          ...metadata.metadata,
-          slug,
+          ...metadata,
           previousPost: null,
           nextPost: null,
         };
@@ -47,20 +55,25 @@ class PostsService {
       const file = await import(`../../content/posts/${slug}.mdx`);
 
       if (file?.metadata) {
-        if (!file.metadata.title || !file.metadata.description) {
-          throw new Error(`Missing some required metadata fields in: ${slug}`);
+        const validationResult = postSchema.safeParse({
+          ...file.metadata,
+          slug,
+        });
+
+        if (!validationResult.success) {
+          const errorMessages = validationResult.error.errors
+            .map((err) => `${err.path.join(".")}: ${err.message}`)
+            .join(", ");
+          throw new Error(`Validation failed for ${slug}: ${errorMessages}`);
         }
 
-        return {
-          slug,
-          metadata: file.metadata,
-        };
+        return validationResult.data;
       } else {
         throw new Error(`Unable to find metadata for ${slug}.mdx`);
       }
     } catch (error: any) {
       console.error("Error", error?.message);
-      return notFound();
+      throw new Error(`Unable to find metadata for ${slug}.mdx`);
     }
   }
 

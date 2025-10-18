@@ -12,6 +12,7 @@ import { Grid } from "@/content/components/Grid";
 import { ButtonText } from "@/content/components/ButtonText";
 import { ParagraphScroll } from "@/content/components/ParagraphScroll";
 import Image from "next/image";
+import { DemoHoverEffect } from "@/content/components/Hover";
 export const mdxComponents = (components: MDXComponents): MDXComponents => {
   return {
     ...components,
@@ -67,6 +68,9 @@ export const mdxComponents = (components: MDXComponents): MDXComponents => {
       );
     },
     pre: (props) => {
+
+
+      console.log(props);
       return <MarkdownCodeBlock {...props} />;
     },
     p: (props) => {
@@ -78,5 +82,6 @@ export const mdxComponents = (components: MDXComponents): MDXComponents => {
     Grid,
     ButtonText,
     ParagraphScroll,
+    DemoHoverEffect,
   };
 };

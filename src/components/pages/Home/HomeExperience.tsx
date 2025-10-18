@@ -9,12 +9,21 @@ import NextLink from "next/link";
 type EngagementProps = Engagement;
 
 const EngagementListItem = (props: EngagementProps) => {
-  const { title, description, cover, href, capabilities = [], slug } = props;
+  const {
+    title,
+    description,
+    cover,
+    start,
+    end,
+    href,
+    capabilities = [],
+    slug,
+  } = props;
 
   return (
     <Box className="flex flex-col gap-3 lg:flex-row">
       <Box className="lg:w-[150px]">
-        {/* {start === end ? end : `${start}—${end}`} */}
+        {start === end ? end : `${start}—${end}`}
       </Box>
 
       <Box className="flex-1 space-y-6">
@@ -53,10 +62,9 @@ const EngagementListItem = (props: EngagementProps) => {
 };
 
 const HomeExperience = ({ work = [] }: { work: Engagement[] }) => {
-
-  console.log(work);
   return (
     <Box className="space-y-8">
+      <Box>See all here</Box>
       {work.map((engagement, i) => {
         return <EngagementListItem {...engagement} key={i} />;
       })}

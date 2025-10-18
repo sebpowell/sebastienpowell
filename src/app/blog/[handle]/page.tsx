@@ -1,9 +1,7 @@
 import { BlogArticleRouteParams } from "@/app/blog/[handle]/routeType";
 import { BlogPost } from "@/components/pages/BlogPost";
-import { markdownProcessor } from "@/lib/markdown/markdown-processor.service";
 import { postsService } from "@/lib/posts";
 import { Metadata } from "next";
-
 import { $path } from "next-typesafe-url";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
@@ -29,7 +27,7 @@ export async function generateMetadata({
     notFound();
   }
 
-  const { title } = metadata.metadata;
+  const { title } = metadata;
 
   return {
     title: `${title} | Sebastien Powell`,
@@ -61,19 +59,19 @@ export default async function PostPage({
 
   if (!BlogMarkdown) return notFound();
 
-  const metadata = await postsService.getBlogPostMetadata(handle);
+  const [metadata, previousPost, nextPost] = await Promise.all([
+    postsService.getBlogPostMetadata(handle),
+    postsService.getPreviousPost(handle),
+    postsService.getNextPost(handle),
+  ]);
 
   return (
     <BlogPost
       post={{
-        title: metadata.metadata.title,
-        date: "2025-10-17",
-        slug: "test",
+        ...metadata,
         source: BlogMarkdown,
-        previousPost: null,
-        nextPost: null,
-        tags: [],
-        capabilities: [],
+        previousPost,
+        nextPost,
       }}
     />
   );

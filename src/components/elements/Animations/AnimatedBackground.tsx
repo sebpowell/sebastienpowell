@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 import { cn } from "@/utils/cn.util";
 import { AnimatePresence, motion, Transition } from "motion/react";
@@ -17,6 +16,7 @@ type ChildWithDataId = ReactElement<
 
 export type AnimatedBackgroundProps = {
   children: ChildWithDataId | ChildWithDataId[];
+  value?: string | null;
   defaultValue?: string;
   onValueChange?: (newActiveId: string | null) => void;
   transition?: Transition;
@@ -26,17 +26,23 @@ export type AnimatedBackgroundProps = {
 
 export function AnimatedBackground({
   children,
-  defaultValue = null,
+  value,
+  defaultValue,
   onValueChange,
   className,
   transition,
   enableHover = false,
 }: AnimatedBackgroundProps) {
-  const [activeId, setActiveId] = useState<string | null>(defaultValue);
+  const [internalActiveId, setInternalActiveId] = useState<string | null>(defaultValue || null);
   const uniqueId = useId();
 
+  // Use controlled value if provided, otherwise use internal state
+  const activeId = value !== undefined ? value : internalActiveId;
+
   const setActive = (id: string | null) => {
-    setActiveId(id);
+    if (value === undefined) {
+      setInternalActiveId(id);
+    }
     onValueChange?.(id);
   };
 
@@ -55,7 +61,7 @@ export function AnimatedBackground({
     return {
       key: id,
       className: cn("relative inline-flex", childClassName),
-      "data-checked": isActive ? "true" : "false",
+      "data-active": isActive ? "true" : "false",
       isActive,
       ...interactionProps,
       ...rest,

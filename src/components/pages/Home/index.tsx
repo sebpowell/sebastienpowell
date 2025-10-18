@@ -19,6 +19,7 @@ import { ArticleList } from "@/components/elements/ArticleList";
 import { Box } from "@/components/elements/Box";
 import { Container } from "@/components/elements/Container";
 import { Engagement } from "@/lib/work";
+import { HomeArticles } from "@/components/pages/Home/HomeArticles";
 
 enum SectionIds {
   "about" = "about",
@@ -57,11 +58,7 @@ const HomePage = ({
     {
       id: SectionIds.blog,
       title: "Writing",
-      component: (
-        <Box className="pt-4">
-          <ArticleList articles={articles} />
-        </Box>
-      ),
+      component: <HomeArticles articles={articles} />,
     },
     {
       id: SectionIds.connect,

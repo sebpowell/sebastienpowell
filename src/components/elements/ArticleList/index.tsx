@@ -3,18 +3,14 @@ import { TapScale } from "@/components/elements/Animations/Tap";
 import { Box, BoxProps } from "@/components/elements/Box";
 import { Heading } from "@/components/elements/Heading";
 import { Post } from "@/interfaces/post.type";
-import { cn } from "@/utils/cn.util";
 import { useClickSound } from "@/utils/useClickSound";
 import { $path } from "next-typesafe-url";
-import Image from "next/image";
 import Link from "next/link";
 import { formatDate } from "date-fns";
 import { HoverEffect } from "@/components/elements/Hover";
 
 const ArticleListItem = (props: { article: Post }) => {
   const { article } = props;
-
-  
 
   const { title, date } = article;
 
@@ -29,9 +25,9 @@ const ArticleListItem = (props: { article: Post }) => {
           size="h3"
           className="font-normal leading-none text-text-strong"
         >
-          {article.title}
+          {title}
         </Heading>
-        {/* <div className="leading-none">{formatDate(date, "MMM d, yyyy")}</div> */}
+        <Box className="leading-none">{formatDate(date, "MMM d, yyyy")}</Box>
       </Box>
     </Box>
   );

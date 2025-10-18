@@ -1,0 +1,114 @@
+import { Skills } from "@/enum/skills.enum";
+import { Capabilities } from "@/enum/capabilities.enum";
+
+export const metadata = {
+  title: "Building SEO-Friendly Accordions with Radix UI",
+  description:
+    "Learn how to solve Radix accordion's content unmounting issue for better SEO using ResizeObserver.",
+  date: "2025-01-17",
+  tags: [Skills.REACT, Skills.TYPESCRIPT, Skills.SEO, Capabilities.FRONTEND],
+};
+
+Radix UI's accordion component is excellent for building accessible, keyboard-navigable accordions. However, there's a common SEO issue that many developers overlook: **Radix accordions unmount content when closed**, which can hurt your search engine rankings.
+
+<Test/>
+
+By default, Radix accordions remove content from the DOM when collapsed. While this improves performance by reducing DOM nodes, it has significant SEO implications:
+
+- **Search engines can't index collapsed content** - Important information hidden in closed accordions becomes invisible to crawlers
+- **Missing semantic structure** - Content that should be discoverable gets removed from the document
+- **Reduced content depth** - Pages appear thinner to search engines
+
+This is particularly problematic for:
+- E-commerce product descriptions
+- FAQ pages
+- Documentation sites
+- Content-heavy informational pages
+
+## The Solution: ResizeObserver
+
+The solution involves keeping content in the DOM while visually hiding it using `ResizeObserver` to manage the accordion's height. Here's how it works:
+
+### Key Concepts
+
+1. **Content stays mounted** - All accordion content remains in the DOM at all times
+2. **Visual hiding** - Content is hidden using `overflow: hidden` and `height: 0`
+3. **Smooth animations** - ResizeObserver provides smooth height transitions
+4. **SEO preservation** - Search engines can crawl all content regardless of accordion state
+
+### How ResizeObserver Works
+
+1. **Content measurement** - ResizeObserver monitors the natural height of accordion content
+2. **Dynamic sizing** - When opened, the accordion animates to the measured height
+3. **Smooth transitions** - CSS transitions provide fluid open/close animations
+4. **Performance optimization** - Only observes when necessary, disconnects on unmount
+
+### Implementation Approach
+
+Here's a minimal, production-ready implementation using existing hooks from `@uidotdev/usehooks`:
+
+```typescript
+import { useMeasure } from "@uidotdev/usehooks";
+
+export const useAccordionHeight = () => {
+  const [height, setHeight] = useState<string>("0px");
+  const triggerRef = useRef<HTMLDivElement>(null);
+  
+  // Use existing useMeasure hook for content measurement
+  const [contentRef, { height: measuredHeight }] = useMeasure<HTMLDivElement>();
+
+  useEffect(() => {
+    const trigger = triggerRef.current;
+    if (!trigger) return;
+
+    const handleStateChange = () => {
+      const isOpen = trigger.getAttribute("data-state") === "open";
+      
+      if (isOpen && measuredHeight !== null) {
+        setHeight(`${measuredHeight}px`);
+      } else {
+        setHeight("0px");
+      }
+    };
+
+    // Initial state check
+    handleStateChange();
+
+    // Watch for state changes
+    const stateObserver = new MutationObserver(handleStateChange);
+    stateObserver.observe(trigger, {
+      attributes: true,
+      attributeFilter: ["data-state"],
+    });
+
+    return () => stateObserver.disconnect();
+  }, [measuredHeight]);
+
+  return { contentRef, triggerRef, height };
+};
+```
+
+### Using the Hook
+
+```typescript
+const AccordionContent = ({ children, ...props }) => {
+  const { contentRef, triggerRef, height } = useAccordionHeight();
+
+  return (
+    <AccordionPrimitive.Content
+      ref={triggerRef}
+      forceMount
+      className="overflow-hidden transition-all duration-300"
+      style={{
+        maxHeight: height,
+        opacity: height === "0px" ? 0 : 1,
+      }}
+      {...props}
+    >
+      <div ref={contentRef}>
+        {children}
+      </div>
+    </AccordionPrimitive.Content>
+  );
+};
+```

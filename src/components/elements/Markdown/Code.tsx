@@ -10,15 +10,15 @@ const MarkdownCodeBlock = (
   props: React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLElement>,
     HTMLElement
-  >,
+  > & {
+    'data-truncate'?: boolean;
+  },
 ) => {
-  const { children, className } = props;
+  const { children, className, ...rest } = props;
 
   const preRef = useRef<HTMLPreElement>(null);
 
   const [isExpanded, setIsExpanded] = useToggle(false);
-
-  const [isTruncated, setIsTruncated] = useToggle(false);
 
   const language = /language-(\w+)/.exec(className || "")?.[1] ?? null;
 
@@ -30,6 +30,9 @@ const MarkdownCodeBlock = (
 
   const [, , resetTimeout] = useTimeoutFn(() => setShowTick(false), 1000);
 
+  // Check if this code block should be truncated
+  const isTruncated = rest['data-truncate'] === true;
+
   useEffect(() => {
     if (state.value) {
       setShowTick(true);
@@ -40,21 +43,6 @@ const MarkdownCodeBlock = (
     copyToClipboard(preRef?.current?.textContent || "");
     resetTimeout();
   };
-
-  useEffect(() => {
-    const checkHeight = () => {
-      if (preRef.current) {
-        const actualHeight = preRef.current.scrollHeight;
-        setIsTruncated(actualHeight > maxHeight);
-      }
-    };
-
-    checkHeight();
-
-    const timeoutId = setTimeout(checkHeight, 100);
-
-    return () => clearTimeout(timeoutId);
-  }, [children]);
 
   return (
     <Box className="relative rounded-2xl border bg-background-surface p-[3px] pt-0 dark">
@@ -86,7 +74,7 @@ const MarkdownCodeBlock = (
         >
           {children}
         </Box>
-        {!isExpanded && (
+        {!isExpanded && isTruncated && (
           <Box
             onClick={() => setIsExpanded(true)}
             className="tet-center absolute bottom-0 left-0 right-0 flex h-16 items-center justify-center bg-gradient-to-t from-background-surface-subtle to-transparent text-sm"

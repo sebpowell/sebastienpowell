@@ -74,13 +74,13 @@ const WorkSampleSidebar = () => {
   const formattedDomain = formatDomain(href);
 
   return (
-    <Container className="flex shrink-0 flex-col gap-12 space-y-5 lg:flex-row">
+    <Box className="flex shrink-0 flex-col gap-12 space-y-5 lg:flex-row">
       <Box className="space-y-12 lg:w-1/2">
         <Box className="space-y-4">
           <Heading as="h1" size="h1" className="text-text-strong">
             {title}
           </Heading>
-          <Paragraph className="text-balance text-lg">{description}</Paragraph>
+          <Paragraph className="text-balance">{description}</Paragraph>
         </Box>
         {formattedDomain && (
           <Button asChild className="relative">
@@ -93,7 +93,7 @@ const WorkSampleSidebar = () => {
       <Box className="lg:w-1/2">
         <WorkSampleDialogMeta />
       </Box>
-    </Container>
+    </Box>
   );
 };
 
@@ -106,11 +106,11 @@ export const WorkSampleContent = (props: {
   return (
     <WorkSampleContext value={{ work }}>
       <Box className="py-24">
-        <Box className="mx-auto w-full max-w-[1440px] space-y-12">
+        <Container className="mx-auto w-full max-w-[1200px] space-y-12">
           <IconButton />
           <WorkSampleSidebar />
-          <Container className="markdown max-w-[1400px]">{children}</Container>
-        </Box>
+          <Box className="markdown">{children}</Box>
+        </Container>
       </Box>
     </WorkSampleContext>
   );

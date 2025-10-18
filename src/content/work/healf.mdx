@@ -1,0 +1,25 @@
+import { Skills } from "@/enum/skills.enum";
+import { Capabilities } from "@/enum/capabilities.enum";
+
+export const metadata = {
+  title: "Albert & Arthur",
+  description:
+    "Started this company with my wife, designing and building the brand and website. Explored headless eCommerce solutions ( Medusa, Shopify, CommerceLayer, Swell) before creating a custom solution.",
+  start: 2024,
+  slug: "albert-arthur",
+  end: 2024,
+  href: "https://albert-arthur.com/",
+  capabilities: [
+    Capabilities.design,
+    Capabilities.frontend,
+    Capabilities.backend,
+  ],
+  skills: [
+    Skills["Contentful"],
+    Skills["Next.js"],
+    Skills["Figma"],
+    Skills["NX"],
+    Skills["trpc"],
+  ],
+  cover: "/work/voltage-park/1.webp",
+};

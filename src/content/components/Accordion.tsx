@@ -35,7 +35,7 @@ export const Test = () => {
           const { id, title, content } = item;
 
           return (
-            <AccordionItem value={id}>
+            <AccordionItem key={id} value={id}>
               <AccordionTrigger>{title}</AccordionTrigger>
               <AccordionContent>{content}</AccordionContent>
             </AccordionItem>
