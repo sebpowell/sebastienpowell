@@ -13,6 +13,7 @@ export const postSchema = z.object({
   slug: z.string(),
   description: z.string(),
   date: z.string(),
+  published: z.boolean(),
 });
 
 export type Post = z.infer<typeof postSchema>;
@@ -41,7 +42,13 @@ class PostsService {
       }),
     );
 
-    return posts;
+    const filteredPosts = posts.filter((post) => post.published);
+
+    if (filteredPosts.length < posts.length) {
+      console.warn(`Found ${posts.length - filteredPosts.length} unpublished posts`);
+    }
+
+    return filteredPosts;
   }
 
   async getAllPostsSortedByDate() {

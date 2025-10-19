@@ -9,17 +9,15 @@ import {
 import { JSX } from "react";
 import { Heading } from "@/components/elements/Heading";
 import { Paragraph } from "@/components/elements/Paragraph";
-import { FadeIn } from "@/components/elements/Animations/FadeIn";
-import { FadeInItems } from "@/components/elements/Animations/StaggerList";
 import { HomeIntro } from "@/components/pages/Home/HomeIntro";
-import { WorkSampleDialog } from "@/components/elements/WorkSampleDialog";
 import { HomeExperience } from "@/components/pages/Home/HomeExperience";
 import { Post } from "@/interfaces/post.type";
-import { ArticleList } from "@/components/elements/ArticleList";
 import { Box } from "@/components/elements/Box";
 import { Container } from "@/components/elements/Container";
 import { Engagement } from "@/lib/work";
 import { HomeArticles } from "@/components/pages/Home/HomeArticles";
+import Link from "next/link";
+import { $path } from "next-typesafe-url";
 
 enum SectionIds {
   "about" = "about",
@@ -40,6 +38,10 @@ const HomePage = ({
     title: string;
     description?: string;
     component: JSX.Element;
+    readMore?: {
+      label: string;
+      href: string;
+    };
   }[] = [
     {
       id: SectionIds.about,
@@ -52,8 +54,12 @@ const HomePage = ({
     },
     {
       id: SectionIds.experience,
-      title: "Experience",
+      title: "Work",
       component: <HomeExperience work={work} />,
+      readMore: {
+        label: "See all",
+        href: $path({ route: "/work" }),
+      },
     },
     {
       id: SectionIds.blog,
@@ -70,34 +76,36 @@ const HomePage = ({
   ];
 
   return (
-    <Container className="flex flex-1 flex-col">
-      <Box className="py-24">
-        {/* This is needed if the user returns to the page */}
-        <WorkSampleDialog />
-        <FadeIn className="space-y-12">
-          <FadeInItems>
-            <HomeIntro />
-            {sections.map((section, i) => {
-              const { id, title, component, description } = section;
+    <Box className="py-24">
+      <Container className="flex flex-1 flex-col space-y-12">
+        <HomeIntro />
+        {sections.map((section, i) => {
+          const { id, title, component, description, readMore } = section;
 
-              return (
-                <Section key={i} id={id}>
-                  <SectionHeader>
-                    <Heading as="h2" size="h2" className="text-text-strong">
-                      {title}
-                    </Heading>
-                  </SectionHeader>
-                  <SectionBody className="space-y-4">
-                    {description && <Paragraph>{description}</Paragraph>}
-                    {component}
-                  </SectionBody>
-                </Section>
-              );
-            })}
-          </FadeInItems>
-        </FadeIn>
-      </Box>
-    </Container>
+          return (
+            <Section key={i} id={id}>
+              <SectionHeader>
+                <Heading as="h2" size="h2" className="text-text-strong">
+                  {title}
+                </Heading>
+                {readMore && (
+                  <Link
+                    href={readMore.href}
+                    className="text-text-muted hover:text-text-strong"
+                  >
+                    {readMore.label}
+                  </Link>
+                )}
+              </SectionHeader>
+              <SectionBody className="space-y-4">
+                {description && <Paragraph>{description}</Paragraph>}
+                {component}
+              </SectionBody>
+            </Section>
+          );
+        })}
+      </Container>
+    </Box>
   );
 };
 

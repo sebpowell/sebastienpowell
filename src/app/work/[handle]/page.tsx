@@ -50,7 +50,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function PostPage({
+export default async function Page({
   params,
 }: {
   params: Promise<{ handle: string }>;

@@ -7,16 +7,29 @@ import z from "zod";
 
 const workDirectory = path.join(process.cwd(), "src/content/work");
 
+export const dateSchema = "YYYY-MM-DD";
+
+const dateStringSchema = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format")
+  .refine((date) => {
+    const parsed = new Date(date);
+    return (
+      !isNaN(parsed.getTime()) && parsed.toISOString().split("T")[0] === date
+    );
+  }, "Date must be a valid date");
+
 export const engagementSchema = z.object({
   title: z.string(),
+  position: z.string(),
   description: z.string(),
   capabilities: z.array(z.string()),
   skills: z.array(z.string()),
   slug: z.string(),
   href: z.string().url(),
-  cover: z.string(),
-  start: z.number(),
-  end: z.number(),
+  cover: z.string().optional(),
+  start: z.union([z.number(), dateStringSchema]),
+  end: z.union([z.number(), dateStringSchema]).optional(),
 });
 
 export type Engagement = z.infer<typeof engagementSchema>;
