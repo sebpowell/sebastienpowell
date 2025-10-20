@@ -1,13 +1,9 @@
 import { BlogArticleRouteParams } from "@/app/blog/[handle]/routeType";
-import { Box } from "@/components/elements/Box";
-import { Container } from "@/components/elements/Container";
 import { WorkSampleContent } from "@/components/elements/WorkSampleContent";
 import { workService } from "@/lib/work";
 import { Metadata } from "next";
-
 import { $path } from "next-typesafe-url";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {

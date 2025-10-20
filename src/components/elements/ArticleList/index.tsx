@@ -1,6 +1,6 @@
 "use client";
 import { TapScale } from "@/components/elements/Animations/Tap";
-import { Box, BoxProps } from "@/components/elements/Box";
+import { Box } from "@/components/elements/Box";
 import { Heading } from "@/components/elements/Heading";
 import { useClickSound } from "@/utils/useClickSound";
 import { $path } from "next-typesafe-url";

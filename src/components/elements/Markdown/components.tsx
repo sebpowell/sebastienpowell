@@ -8,7 +8,6 @@ import { MDXComponents } from "mdx/types";
 import Link from "next/link";
 import { Test } from "@/content/components/Accordion";
 import { Tabs } from "@/content/components/Tabs";
-import { Grid } from "@/content/components/Grid";
 import { ButtonText } from "@/content/components/ButtonText";
 import { ParagraphScroll } from "@/content/components/ParagraphScroll";
 import Image from "next/image";
@@ -77,7 +76,6 @@ export const mdxComponents = (components: MDXComponents): MDXComponents => {
     Dropzone,
     Test,
     Tabs,
-    Grid,
     ButtonText,
     ParagraphScroll,
     DemoHoverEffect,

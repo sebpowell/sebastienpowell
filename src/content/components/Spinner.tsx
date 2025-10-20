@@ -1,12 +1,15 @@
-import { BoxProps } from "@/components/elements/Box";
+import { Box, BoxProps } from "@/components/elements/Box";
+import { cn } from "@/utils/cn.util";
 
 export function Spinner(props: BoxProps) {
-    return (
-      <div className="spinner size-6">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div key={i} />
-        ))}
-        <style>{`
+  const { className, ...rest } = props;
+
+  return (
+    <Box className={cn("spinner size-6", className)} {...rest}>
+      {Array.from({ length: 12 }).map((_, i) => (
+        <div key={i} />
+      ))}
+      <style>{`
           @keyframes --blink {
             50% { opacity: 0; }
           }
@@ -43,6 +46,6 @@ export function Spinner(props: BoxProps) {
           .spinner > div:nth-child(11) { --sibling-index: 11; }
           .spinner > div:nth-child(12) { --sibling-index: 12; }
         `}</style>
-      </div>
-    );
-  }
+    </Box>
+  );
+}

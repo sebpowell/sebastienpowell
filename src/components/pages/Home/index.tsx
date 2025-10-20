@@ -79,7 +79,7 @@ const HomePage = ({
       <Container className="flex flex-1 flex-col space-y-12">
         <HomeIntro />
         {sections.map((section, i) => {
-          const { id, title, component, description, readMore } = section;
+          const { id, title, component, description } = section;
 
           return (
             <Section key={i} id={id}>

@@ -17,20 +17,16 @@ export function rehypeCodeTitles() {
             );
 
             if (truncateIndex !== -1) {
-              // Store the original class for debugging
               const originalClass = className[truncateIndex];
 
-              // Remove the :truncate suffix from className
               className[truncateIndex] = originalClass.replace(":truncate", "");
 
-              // Add truncate data attribute to pre element
               if (!node.properties) {
                 node.properties = {};
               }
 
               node.properties["data-truncate"] = true;
 
-              // Also add it to the code element for consistency
               if (!codeElement.properties) {
                 codeElement.properties = {};
               }

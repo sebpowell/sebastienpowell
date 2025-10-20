@@ -1,5 +1,4 @@
 import { Box } from "@/components/elements/Box";
-import { Container } from "@/components/elements/Container";
 import { Footer } from "@/components/elements/Footer";
 import { ReactNode } from "react";
 

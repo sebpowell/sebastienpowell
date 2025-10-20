@@ -1,5 +1,4 @@
-import { Box, BoxProps } from "@/components/elements/Box";
-
+import { Box } from "@/components/elements/Box";
 import { Separator } from "@/components/elements/Separator";
 import { ComponentType, createElement } from "react";
 import { Post } from "@/lib/posts";
@@ -9,7 +8,7 @@ import { BlogPostFooter } from "@/components/pages/BlogPost/BlogPostFooter";
 
 export const BlogPost = (props: {
   post: Post & {
-    source: ComponentType<{}>;
+    source: ComponentType<any>;
     previousPost: Post | null;
     nextPost: Post | null;
   };
@@ -26,7 +25,6 @@ export const BlogPost = (props: {
           <Box as="main" className="markdown">
             {createElement(source)}
           </Box>
-
           {(previousPost || nextPost) && (
             <>
               <Separator />

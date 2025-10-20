@@ -1,5 +1,4 @@
 import { Box } from "@/components/elements/Box";
-import { Button } from "@/components/elements/Button";
 import { Heading } from "@/components/elements/Heading";
 import { HoverEffect } from "@/components/elements/Hover";
 import { Link } from "@/components/elements/Link";

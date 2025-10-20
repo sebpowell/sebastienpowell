@@ -1,10 +1,6 @@
-
-// @ts-nocheck
 import { cn } from "@/utils/cn.util";
 import { HTMLMotionProps, motion } from "motion/react";
-import { memo, useMemo } from "react";
-
-
+import { memo, ReactNode, useMemo } from "react";
 
 function TextShimmerComponent<T extends keyof HTMLElementTagNameMap = "div">(
   props: HTMLMotionProps<T> & { as?: T; duration?: number; spread?: number },
@@ -14,7 +10,7 @@ function TextShimmerComponent<T extends keyof HTMLElementTagNameMap = "div">(
   const MotionComponent = motion.create(as as keyof HTMLElementTagNameMap);
 
   const dynamicSpread = useMemo(() => {
-    return children?.length * spread;
+    return (children as ReactNode[])?.length * spread;
   }, [children, spread]);
 
   return (

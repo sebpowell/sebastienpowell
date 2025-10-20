@@ -1,7 +1,5 @@
-import { TapScale } from "@/components/elements/Animations/Tap";
 import { Box } from "@/components/elements/Box";
 import { Heading } from "@/components/elements/Heading";
-
 import Image from "next/image";
 
 const HomeIntro = () => {

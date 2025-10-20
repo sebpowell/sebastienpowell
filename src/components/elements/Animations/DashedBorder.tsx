@@ -20,7 +20,6 @@ export function AnimatedDashedBorder(props: AnimatedDashedBorderProps) {
     width = 0,
     height = 0,
     active = false,
-    children,
     className,
     ...rest
   } = props;

@@ -33,10 +33,11 @@ export function AnimatedBackground({
   transition,
   enableHover = false,
 }: AnimatedBackgroundProps) {
-  const [internalActiveId, setInternalActiveId] = useState<string | null>(defaultValue || null);
+  const [internalActiveId, setInternalActiveId] = useState<string | null>(
+    defaultValue || null,
+  );
   const uniqueId = useId();
 
-  // Use controlled value if provided, otherwise use internal state
   const activeId = value !== undefined ? value : internalActiveId;
 
   const setActive = (id: string | null) => {
@@ -73,7 +74,7 @@ export function AnimatedBackground({
       {Children.map(children, (child) => {
         const props = getChildProps(child);
 
-        const { isActive, key, ...restProps } = props;
+        const { isActive, ...restProps } = props;
 
         return cloneElement(
           child,

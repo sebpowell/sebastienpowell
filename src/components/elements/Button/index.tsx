@@ -46,15 +46,6 @@ const buttonBaseStyles = cva([
   "h-9 pb-[1px] rounded-full px-4 leading-none font-medium text-sm inline-flex items-center justify-center transition-all duration-300 hover:shadow-button-hover bg-button-primary-background text-button-primary-text",
 ]);
 
-const buttonVariants = cva(buttonBaseStyles, {
-  variants: {
-    variant: {
-      solid: buttonBaseStyles(),
-      outline: buttonBaseStyles(),
-    },
-  },
-});
-
 const Button = (props: ButtonProps) => {
   const { className, ...rest } = props;
 

@@ -1,5 +1,5 @@
 "use client";
-import { Box, BoxProps } from "@/components/elements/Box";
+import { BoxProps } from "@/components/elements/Box";
 import { HTMLMotionProps, motion } from "motion/react";
 import { ElementType } from "react";
 
