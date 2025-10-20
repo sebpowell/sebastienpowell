@@ -2,12 +2,12 @@
 import { TapScale } from "@/components/elements/Animations/Tap";
 import { Box, BoxProps } from "@/components/elements/Box";
 import { Heading } from "@/components/elements/Heading";
-import { Post } from "@/interfaces/post.type";
 import { useClickSound } from "@/utils/useClickSound";
 import { $path } from "next-typesafe-url";
 import Link from "next/link";
 import { formatDate } from "date-fns";
 import { HoverEffect } from "@/components/elements/Hover";
+import { Post } from "@/lib/posts";
 
 const ArticleListItem = (props: { article: Post }) => {
   const { article } = props;

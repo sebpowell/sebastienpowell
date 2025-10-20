@@ -6,14 +6,13 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/elements/Dialog";
-import { Engagement } from "@/interfaces/engagement.type";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { motion, Variants } from "motion/react";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import { useClickSound } from "@/utils/useClickSound";
-import { WorkSampleContent } from "@/components/elements/WorkSampleContent";
+import { Engagement } from "@/lib/work";
 
 type WorkSampleImageProps = {
   number: number;
@@ -98,8 +97,6 @@ const WorkSampleDialog = () => {
   };
 
   if (!selected) return;
-
-  const { shots } = selected;
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>

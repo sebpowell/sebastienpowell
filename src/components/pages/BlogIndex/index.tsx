@@ -1,6 +1,6 @@
 import { ArticleList } from "@/components/elements/ArticleList";
 import { Heading } from "@/components/elements/Heading";
-import { Post } from "@/interfaces/post.type";
+import { Post } from "@/lib/posts";
 
 type BlogIndexProps = {
   posts: Post[];

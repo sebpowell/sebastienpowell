@@ -29,8 +29,8 @@ export function Dropzone() {
           </Box>
 
           <AnimatedDashedBorder
-            width={width}
-            height={height}
+            width={width || 0}
+            height={height || 0}
             dashArray="4 4"
             strokeWidth={1}
             borderRadius={8}

@@ -1,7 +1,7 @@
-import { Box, BoxProps } from "@/components/elements/Box";
+import { BoxProps } from "@/components/elements/Box";
 import { cn } from "@/utils/cn.util";
 
-type AnimatedDashedBorderProps = BoxProps<"svg"> & {
+type AnimatedDashedBorderProps = Omit<BoxProps<"svg">, "width" | "height"> & {
   animationDuration?: number;
   borderRadius?: number;
   dashArray?: string;

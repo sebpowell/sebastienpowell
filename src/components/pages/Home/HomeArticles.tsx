@@ -1,6 +1,6 @@
 import { ArticleList } from "@/components/elements/ArticleList";
 import { Box } from "@/components/elements/Box";
-import { Post } from "@/interfaces/post.type";
+import { Post } from "@/lib/posts";
 
 export const HomeArticles = ({ articles }: { articles: Post[] }) => {
   return (

@@ -11,13 +11,12 @@ import { Heading } from "@/components/elements/Heading";
 import { Paragraph } from "@/components/elements/Paragraph";
 import { HomeIntro } from "@/components/pages/Home/HomeIntro";
 import { HomeExperience } from "@/components/pages/Home/HomeExperience";
-import { Post } from "@/interfaces/post.type";
 import { Box } from "@/components/elements/Box";
 import { Container } from "@/components/elements/Container";
 import { Engagement } from "@/lib/work";
 import { HomeArticles } from "@/components/pages/Home/HomeArticles";
-import Link from "next/link";
 import { $path } from "next-typesafe-url";
+import { Post } from "@/lib/posts";
 
 enum SectionIds {
   "about" = "about",
