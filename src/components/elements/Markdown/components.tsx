@@ -13,13 +13,14 @@ import { ButtonText } from "@/content/components/ButtonText";
 import { ParagraphScroll } from "@/content/components/ParagraphScroll";
 import Image from "next/image";
 import { DemoHoverEffect } from "@/content/components/Hover";
+
 export const mdxComponents = (components: MDXComponents): MDXComponents => {
   return {
     ...components,
     img: (props) => {
       const { src, alt } = props;
       return (
-        <Box className="relative overflow-hidden rounded-2xl bg-black/70">
+        <Box className="relative overflow-hidden rounded-2xl border bg-background-surface-subtle">
           <Image
             src={src}
             alt={alt}
@@ -68,9 +69,6 @@ export const mdxComponents = (components: MDXComponents): MDXComponents => {
       );
     },
     pre: (props) => {
-
-
-      console.log(props);
       return <MarkdownCodeBlock {...props} />;
     },
     p: (props) => {

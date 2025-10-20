@@ -5,6 +5,8 @@ import { HoverEffect } from "@/components/elements/Hover";
 import { Link } from "@/components/elements/Link";
 import { ProjectThumbnail } from "@/components/elements/ProjectThumbnail";
 import { Engagement } from "@/lib/work";
+import { formatEngagementDate } from "@/utils/formatDate";
+import { ArrowUpRight } from "lucide-react";
 import NextLink from "next/link";
 import { sortBy } from "remeda";
 
@@ -13,24 +15,17 @@ type EngagementProps = Engagement;
 const EngagementListItem = (props: EngagementProps) => {
   const { title, description, cover, start, end, href, slug, position } = props;
 
-  const startYear = new Date(start).getFullYear();
-
-  const endYear = end ? new Date(end).getFullYear() : undefined;
-
-  const display =
-    startYear === endYear
-      ? endYear
-      : endYear
-        ? `${startYear} – ${endYear}`
-        : startYear;
-
   return (
     <Box className="flex flex-col gap-3 lg:flex-row">
-      <Box className="lg:w-[150px]">{display}</Box>
+      <Box className="lg:w-[150px]">{formatEngagementDate({ start, end })}</Box>
       <Box className="flex-1 space-y-6">
         <Box className="space-y-4">
           <Box className="space-y-1">
-            <Heading as="h3" size="h3" className="text-text-strong">
+            <Heading
+              as="h3"
+              size="h3"
+              className="flex items-center gap-0.5 text-text-strong"
+            >
               <Link
                 as="a"
                 href={href}
@@ -40,6 +35,7 @@ const EngagementListItem = (props: EngagementProps) => {
               >
                 {title}
               </Link>
+              <ArrowUpRight className="size-4" />
             </Heading>
             <Box className="leading-none text-text-muted">{position}</Box>
           </Box>
@@ -65,14 +61,9 @@ const HomeExperience = ({ work = [] }: { work: Engagement[] }) => {
 
   return (
     <Box className="space-y-8">
-      {sortedWork.splice(0, 4).map((engagement, i) => {
+      {sortedWork.map((engagement, i) => {
         return <EngagementListItem {...engagement} key={i} />;
       })}
-
-      <Box className="flex items-center gap-2">
-        <Box className="w-[150px]"></Box>
-        <Button>See more</Button>
-      </Box>
     </Box>
   );
 };

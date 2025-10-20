@@ -24,7 +24,7 @@ export const Tabs = () => {
 
   return (
     <Interactive className="p-12">
-      <Box className="rounded-full border p-1">
+      <Box className="rounded-full border p-1 w-full flex">
         <AnimatedBackground
           value={activeTab}
           onValueChange={(id) => id && setActiveTab(id)}
@@ -42,7 +42,7 @@ export const Tabs = () => {
               <Box
                 key={id}
                 data-id={id}
-                className="inline-flex h-10 cursor-pointer items-center justify-center px-5 text-sm font-medium transition-colors data-[active=true]:text-foreground data-[active=false]:text-muted-foreground"
+                className="inline-flex flex-1 h-10 cursor-pointer items-center justify-center px-5 text-sm font-medium transition-colors data-[active=true]:text-foreground data-[active=false]:text-muted-foreground"
               >
                 {label}
               </Box>

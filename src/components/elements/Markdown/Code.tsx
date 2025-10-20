@@ -11,7 +11,7 @@ const MarkdownCodeBlock = (
     React.HTMLAttributes<HTMLElement>,
     HTMLElement
   > & {
-    'data-truncate'?: boolean;
+    "data-truncate"?: boolean;
   },
 ) => {
   const { children, className, ...rest } = props;
@@ -30,8 +30,7 @@ const MarkdownCodeBlock = (
 
   const [, , resetTimeout] = useTimeoutFn(() => setShowTick(false), 1000);
 
-  // Check if this code block should be truncated
-  const isTruncated = rest['data-truncate'] === true;
+  const isTruncated = rest["data-truncate"] === true;
 
   useEffect(() => {
     if (state.value) {
@@ -51,9 +50,7 @@ const MarkdownCodeBlock = (
         className="flex items-center justify-between px-3 py-2 text-xs"
       >
         <Box className="text-text-muted">{language}</Box>
-        <Box onClick={() => setIsExpanded(false)}>
-          Collapse
-        </Box>
+        <Box onClick={() => setIsExpanded(false)}>Collapse</Box>
         <Box
           as="button"
           className="rounded-full bg-background-surface-interactive px-2.5 py-1.5 leading-none text-text-muted hover:text-text-strong"
@@ -68,21 +65,24 @@ const MarkdownCodeBlock = (
           ref={preRef}
           className={cn(
             "code relative whitespace-pre bg-background-surface-subtle text-[13px]",
-            isExpanded ? "" : `overflow-hidden`,
+            {
+              "overflow-scroll": !isExpanded && isTruncated,
+            },
           )}
-          style={{ maxHeight: isExpanded ? "none" : maxHeight }}
+          style={{ ...(isTruncated && !isExpanded && { maxHeight }) }}
         >
           {children}
         </Box>
-        {!isExpanded && isTruncated && (
-          <Box
-            onClick={() => setIsExpanded(true)}
-            className="tet-center absolute bottom-0 left-0 right-0 flex h-16 items-center justify-center bg-gradient-to-t from-background-surface-subtle to-transparent text-sm"
-          >
-            Expand
-          </Box>
-        )}
       </Box>
+      {!isExpanded && isTruncated && (
+        <Box
+          as="button"
+          onClick={() => setIsExpanded(true)}
+          className="flex h-12 w-full left-0 absolute bottom-0 text-text-strong items-center justify-center bg-gradient-to-t from-background-surface-subtle to-transparent text-xs rounded-b-2xl"
+        >
+          Expand
+        </Box>
+      )}
     </Box>
   );
 };

@@ -43,7 +43,7 @@ const ButtonRotatingText = (props: ButtonRotatingTextProps) => {
 };
 
 const buttonBaseStyles = cva([
-  "h-8 rounded-full px-4 leading-none font-medium text-sm inline-flex items-center justify-center transition-all duration-300 hover:shadow-button-hover bg-button-primary-background text-button-primary-text",
+  "h-9 pb-[1px] rounded-full px-4 leading-none font-medium text-sm inline-flex items-center justify-center transition-all duration-300 hover:shadow-button-hover bg-button-primary-background text-button-primary-text",
 ]);
 
 const buttonVariants = cva(buttonBaseStyles, {
@@ -67,7 +67,6 @@ const Button = (props: ButtonProps) => {
         className={cn(buttonBaseStyles(), className)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        // whileTap={{ scale: 0.9 }}
         {...rest}
       />
     </ButtonContext>

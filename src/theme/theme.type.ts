@@ -3,6 +3,7 @@ type Theme = {
   "background-surface": string;
   "background-surface-subtle": string;
   "background-surface-interactive": string;
+  "background-surface-interactive-hover": string,
 
   "border-default": string;
 

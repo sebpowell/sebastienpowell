@@ -35,10 +35,10 @@ export const BlogPostFooter = (props: {
   return (
     <Box
       as="footer"
-      className={cn(
-        "flex items-center",
-        previousPost && nextPost ? "justify-between" : "justify-end",
-      )}
+      className={cn("flex items-center", {
+        "justify-between": previousPost && nextPost,
+        "justify-end": !previousPost && nextPost,
+      })}
     >
       {previousPost && (
         <Link

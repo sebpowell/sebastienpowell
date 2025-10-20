@@ -88,14 +88,6 @@ const HomePage = ({
                 <Heading as="h2" size="h2" className="text-text-strong">
                   {title}
                 </Heading>
-                {readMore && (
-                  <Link
-                    href={readMore.href}
-                    className="text-text-muted hover:text-text-strong"
-                  >
-                    {readMore.label}
-                  </Link>
-                )}
               </SectionHeader>
               <SectionBody className="space-y-4">
                 {description && <Paragraph>{description}</Paragraph>}

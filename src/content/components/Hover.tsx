@@ -3,7 +3,7 @@ import { Box } from "@/components/elements/Box";
 import { HoverEffect } from "@/components/elements/Hover";
 import { Interactive } from "@/components/elements/Markdown/Interactive";
 import Image from "next/image";
-import image from "../../../public/work/voltage-park/1.webp";
+import image from "../../../public/work/voltage-park/1.jpg";
 
 export const DemoHoverEffect = () => {
   return (

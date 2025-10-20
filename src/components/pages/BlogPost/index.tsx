@@ -22,7 +22,7 @@ export const BlogPost = (props: {
     <Box className="w-full py-24">
       <Container className="space-y-6">
         <BlogPostHeader title={post.title} date={post.date} readingTime={0} />
-        <Box className="space-y-12">
+        <Box className="space-y-6">
           <Box as="main" className="markdown">
             {createElement(source)}
           </Box>

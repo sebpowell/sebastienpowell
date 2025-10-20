@@ -9,7 +9,6 @@ import { Engagement } from "@/lib/work";
 import { createContext } from "@/utils/createContext.util";
 import { formatEngagementDate } from "@/utils/formatDate";
 import { formatDomain } from "@/utils/formatDomain";
-import Image from "next/image";
 import { ReactNode } from "react";
 
 type WorkSampleContextProps = {
@@ -45,7 +44,7 @@ const WorkSampleDialogMeta = () => {
       <WorkSampleAttribute title="Capabilties">
         {capabilities.join(", ")}
       </WorkSampleAttribute>
-      <WorkSampleAttribute title="Tools">
+      <WorkSampleAttribute title="Tools & technologies">
         <Box className="flex flex-wrap gap-2">
           {skills.map((skill, i) => {
             return (
@@ -75,7 +74,7 @@ const WorkSampleSidebar = () => {
 
   return (
     <Box className="flex shrink-0 flex-col gap-12 space-y-5 lg:flex-row">
-      <Box className="space-y-12 lg:w-1/2">
+      <Box className="space-y-4 lg:w-1/2">
         <Box className="space-y-4">
           <Heading as="h1" size="h1" className="text-text-strong">
             {title}
@@ -106,8 +105,8 @@ export const WorkSampleContent = (props: {
   return (
     <WorkSampleContext value={{ work }}>
       <Box className="py-24">
-        <Container className="mx-auto w-full max-w-[1200px] space-y-12">
-          <IconButton />
+        <Container variant="lg" className="mx-auto w-full space-y-12">
+          
           <WorkSampleSidebar />
           <Box className="markdown">{children}</Box>
         </Container>

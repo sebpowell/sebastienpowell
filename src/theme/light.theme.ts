@@ -6,6 +6,7 @@ const lightTheme: Theme = {
   "background-surface": white,
   "background-surface-subtle": neutral[100],
   "background-surface-interactive": neutral[200],
+  "background-surface-interactive-hover": neutral[300],
 
   "border-default": neutral[200],
 

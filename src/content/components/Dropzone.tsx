@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { AnimatedDashedBorder } from "@/components/elements/Animations/DashedBorder";
@@ -14,7 +13,7 @@ export function Dropzone() {
   const [ref, { width, height }] = useMeasure();
 
   return (
-    <Interactive>
+    <Interactive className="p-12 ">
       <Box
         className="group w-full rounded-xl bg-background-surface-interactive p-1 text-border-strong hover:text-purple-500"
         onMouseEnter={() => setIsHovering(true)}

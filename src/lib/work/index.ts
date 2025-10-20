@@ -28,8 +28,9 @@ export const engagementSchema = z.object({
   slug: z.string(),
   href: z.string().url(),
   cover: z.string().optional(),
-  start: z.union([z.number(), dateStringSchema]),
-  end: z.union([z.number(), dateStringSchema]).optional(),
+  start: z.union([z.string(), dateStringSchema]),
+  end: z.union([z.string(), dateStringSchema]).optional(),
+  published: z.boolean(),
 });
 
 export type Engagement = z.infer<typeof engagementSchema>;
@@ -57,7 +58,13 @@ class WorkService {
       }),
     );
 
-    return posts;
+    const filteredPosts = posts.filter((post) => post.published);
+
+    if (filteredPosts.length < posts.length) {
+      console.warn(`Found ${posts.length - filteredPosts.length} unpublished posts`);
+    }
+
+    return filteredPosts;
   }
 
   async getEntryMetadata(slug: string) {
