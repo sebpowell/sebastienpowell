@@ -10,15 +10,17 @@ const HomeIntro = () => {
           src="/avatar.png"
           alt="Sebastien Powell"
           fill
-          sizes="5rem"
+          sizes="4rem"
           priority
         />
       </Box>
-      <Box>
-        <Heading as="h1" className="text-text-strong" size="h2">
+      <Box className="space-y-1.5">
+        <Heading as="h1" className="leading-none text-text-strong" size="h2">
           Sebastien Powell
         </Heading>
-        <Box className="text-text-muted">Product Design &amp; Engineering</Box>
+        <Box className="leading-none text-text-muted">
+          Product Design &amp; Engineering
+        </Box>
       </Box>
     </Box>
   );

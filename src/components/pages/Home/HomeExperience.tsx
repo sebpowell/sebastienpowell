@@ -1,28 +1,30 @@
 import { Box } from "@/components/elements/Box";
 import { Heading } from "@/components/elements/Heading";
+import { HoverEffect } from "@/components/elements/Hover";
 import { Link } from "@/components/elements/Link";
-import { Markdown } from "@/components/elements/Markdown";
 import { ProjectThumbnail } from "@/components/elements/ProjectThumbnail";
-import { useAppContext } from "@/contexts/app.context";
-import { Engagement } from "@/interfaces/engagement.type";
+import { Engagement } from "@/lib/work";
+import { formatEngagementDate } from "@/utils/formatDate";
+import { ArrowUpRight } from "lucide-react";
 import NextLink from "next/link";
+import { sortBy } from "remeda";
 
 type EngagementProps = Engagement;
 
 const EngagementListItem = (props: EngagementProps) => {
-  const { title, description, start, end, href, capabilities, shots, slug } =
-    props;
+  const { title, description, cover, start, end, href, slug, position } = props;
 
   return (
     <Box className="flex flex-col gap-3 lg:flex-row">
-      <Box className="lg:w-[150px]">
-        {start === end ? end : `${start}—${end}`}
-      </Box>
-
+      <Box className="lg:w-[150px]">{formatEngagementDate({ start, end })}</Box>
       <Box className="flex-1 space-y-6">
         <Box className="space-y-4">
-          <Box>
-            <Heading as="h3" size="h3" className="text-text-strong">
+          <Box className="space-y-1">
+            <Heading
+              as="h3"
+              size="h3"
+              className="flex items-center gap-0.5 text-text-strong"
+            >
               <Link
                 as="a"
                 href={href}
@@ -32,15 +34,20 @@ const EngagementListItem = (props: EngagementProps) => {
               >
                 {title}
               </Link>
+              <ArrowUpRight className="size-4" />
             </Heading>
-            <Box className="text-text-muted">{capabilities.join(", ")}</Box>
+            <Box className="leading-none text-text-muted">{position}</Box>
           </Box>
-          <Markdown content={description} />
+          <Box>{description}</Box>
         </Box>
 
-        {shots > 0 && (
-          <NextLink href={`/work/${slug}`} className="block w-full">
-            <ProjectThumbnail alt={title} slug={slug} />
+        {cover && (
+          <NextLink
+            href={`/work/${slug}`}
+            className="group relative block w-full"
+          >
+            <HoverEffect className="-inset-2 rounded-[18px] bg-background-surface-interactive" />
+            <ProjectThumbnail alt={title} src={cover} />
           </NextLink>
         )}
       </Box>
@@ -48,12 +55,12 @@ const EngagementListItem = (props: EngagementProps) => {
   );
 };
 
-const HomeExperience = () => {
-  const { engagements } = useAppContext();
+const HomeExperience = ({ work = [] }: { work: Engagement[] }) => {
+  const sortedWork = sortBy(work, (engagement) => engagement.start).reverse();
 
   return (
     <Box className="space-y-8">
-      {engagements.map((engagement, i) => {
+      {sortedWork.map((engagement, i) => {
         return <EngagementListItem {...engagement} key={i} />;
       })}
     </Box>

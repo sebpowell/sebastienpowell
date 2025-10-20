@@ -1,6 +1,6 @@
 enum Themes {
-  "light" = "light",
-  "dark" = "dark",
+  'light' = 'light',
+  'dark' = 'dark',
 }
 
 export { Themes };

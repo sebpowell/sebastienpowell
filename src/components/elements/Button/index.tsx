@@ -43,7 +43,7 @@ const ButtonRotatingText = (props: ButtonRotatingTextProps) => {
 };
 
 const buttonBaseStyles = cva([
-  "h-8 rounded-full px-4 leading-none font-medium text-sm inline-flex items-center justify-center transition-all duration-300 hover:shadow-button-hover bg-button-primary-background text-button-primary-text",
+  "h-9 pb-[1px] rounded-full px-4 leading-none font-medium text-sm inline-flex items-center justify-center transition-all duration-300 hover:shadow-button-hover bg-button-primary-background text-button-primary-text",
 ]);
 
 const Button = (props: ButtonProps) => {
@@ -54,7 +54,7 @@ const Button = (props: ButtonProps) => {
   return (
     <ButtonContext value={{ isHovered }}>
       <Box
-        as="button"
+        as={motion.button}
         className={cn(buttonBaseStyles(), className)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

@@ -1,6 +1,6 @@
-import { Box, BoxProps } from "@/components/elements/Box";
+import { Box, BoxProps } from '@/components/elements/Box';
 
-const IconExternalLink = (props: BoxProps<"svg">) => {
+const IconExternalLink = (props: BoxProps<'svg'>) => {
   return (
     <Box
       as="svg"

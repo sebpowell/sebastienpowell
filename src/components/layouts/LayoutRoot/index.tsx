@@ -12,7 +12,7 @@ const LayoutRoot = ({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`flex min-h-screen flex-1 flex-col bg-bg-root font-sans text-text-body antialiased transition-transform selection:bg-selection-background selection:text-selection-text ${inter.variable} scroll-smooth text-base`}
+        className={`flex min-h-screen flex-1 flex-col bg-background-default font-sans text-text-body antialiased transition-transform selection:bg-selection-background selection:text-selection-text ${inter.variable} scroll-smooth text-base`}
       >
         <Providers>
           <LayoutMain>{children}</LayoutMain>

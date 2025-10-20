@@ -1,18 +1,21 @@
 type Theme = {
-  "bg-root": string;
-  "bg-page": string;
-  "text-strong": string;
-  "text-body": string;
-  "text-muted": string;
-  "button-secondary-background-hover": string;
-  "shadow-image-thumb-inset": string;
-  "shadow-image-thumb-hover": string;
+  "background-default": string;
+  "background-surface": string;
+  "background-surface-subtle": string;
+  "background-surface-interactive": string;
+  "background-surface-interactive-hover": string,
+
+  "border-default": string;
+
+  "button-primary-background": string;
+  "button-primary-text": string;
 
   "selection-background": string;
   "selection-text": string;
 
-  "button-primary-background": string;
-  "button-primary-text": string;
+  "text-strong": string;
+  "text-body": string;
+  "text-muted": string;
 };
 
 export type { Theme };

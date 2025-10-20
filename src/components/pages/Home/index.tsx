@@ -9,71 +9,94 @@ import {
 import { JSX } from "react";
 import { Heading } from "@/components/elements/Heading";
 import { Paragraph } from "@/components/elements/Paragraph";
-import { FadeIn } from "@/components/elements/Animations/FadeIn";
-import { FadeInItems } from "@/components/elements/Animations/StaggerList";
 import { HomeIntro } from "@/components/pages/Home/HomeIntro";
-import { WorkSampleDialog } from "@/components/elements/WorkSampleDialog";
 import { HomeExperience } from "@/components/pages/Home/HomeExperience";
+import { Box } from "@/components/elements/Box";
+import { Container } from "@/components/elements/Container";
+import { Engagement } from "@/lib/work";
+import { HomeArticles } from "@/components/pages/Home/HomeArticles";
+import { $path } from "next-typesafe-url";
+import { Post } from "@/lib/posts";
 
 enum SectionIds {
   "about" = "about",
   "experience" = "experience",
+  "blog" = "blog",
   "connect" = "connect",
 }
 
-const sections: {
-  id: SectionIds;
-  title: string;
-  description?: string;
-  component: JSX.Element;
-}[] = [
-  {
-    id: SectionIds.about,
-    title: "About",
-    component: <HomeAbout />,
-  },
-  {
-    id: SectionIds.experience,
-    title: "Experience",
-    component: <HomeExperience />,
-  },
-  {
-    id: SectionIds.connect,
-    title: "Connect",
-    description:
-      "Open to ad-hoc projects, fractional or full-time contracts from February '25.",
-    component: <HomeContact />,
-  },
-];
+const HomePage = ({
+  articles,
+  work,
+}: {
+  articles: Post[];
+  work: Engagement[];
+}) => {
+  const sections: {
+    id: SectionIds;
+    title: string;
+    description?: string;
+    component: JSX.Element;
+    readMore?: {
+      label: string;
+      href: string;
+    };
+  }[] = [
+    {
+      id: SectionIds.about,
+      title: "About",
+      component: (
+        <div className="markdown">
+          <HomeAbout />
+        </div>
+      ),
+    },
+    {
+      id: SectionIds.experience,
+      title: "Work",
+      component: <HomeExperience work={work} />,
+      readMore: {
+        label: "See all",
+        href: $path({ route: "/work" }),
+      },
+    },
+    {
+      id: SectionIds.blog,
+      title: "Writing",
+      component: <HomeArticles articles={articles} />,
+    },
+    {
+      id: SectionIds.connect,
+      title: "Connect",
+      description:
+        "Open to ad-hoc projects, fractional or full-time contracts.",
+      component: <HomeContact />,
+    },
+  ];
 
-const HomePage = () => {
   return (
-    <>
-      {/* This is needed if the user returns to the page */}
-      <WorkSampleDialog />
-      <FadeIn className="space-y-12">
-        <FadeInItems>
-          <HomeIntro />
-          {sections.map((section, i) => {
-            const { id, title, component, description } = section;
+    <Box className="py-24">
+      <Container className="flex flex-1 flex-col space-y-12">
+        <HomeIntro />
+        {sections.map((section, i) => {
+          const { id, title, component, description } = section;
 
-            return (
-              <Section key={i} id={id}>
-                <SectionHeader>
-                  <Heading as="h2" size="h2" className="text-text-strong">
-                    {title}
-                  </Heading>
-                </SectionHeader>
-                <SectionBody className="space-y-4">
-                  {description && <Paragraph>{description}</Paragraph>}
-                  {component}
-                </SectionBody>
-              </Section>
-            );
-          })}
-        </FadeInItems>
-      </FadeIn>
-    </>
+          return (
+            <Section key={i} id={id}>
+              <SectionHeader>
+                <Heading as="h2" size="h2" className="text-text-strong">
+                  {title}
+                </Heading>
+              </SectionHeader>
+              <SectionBody className="space-y-4">
+                {description && <Paragraph>{description}</Paragraph>}
+                {component}
+              </SectionBody>
+            </Section>
+          );
+        })}
+      </Container>
+    </Box>
   );
 };
 

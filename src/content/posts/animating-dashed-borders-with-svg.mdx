@@ -1,0 +1,122 @@
+import { Skills } from "@/enum/skills.enum";
+import { Capabilities } from "@/enum/capabilities.enum"; 
+
+export const metadata = {
+  title: "Animated dashed borders",
+  description: "Animated dashed borders",
+  date: "2025-08-15",
+  published: true
+};
+
+I recently had to create a dropzone component with an inset dashed border, which I decided I also wanted to animate.
+
+The design required precise control over the dash pattern, but the CSS `border` property offers limited flexibility. You can make it dashed and adjust its width, but you can't define the dash array.
+
+I tried a `linear-gradient` trick ([like this one](https://codepen.io/amit_sheen/pen/xxZeyjO)), but it doesn’t play nicely with `border-radius`.
+
+In the end, I used an SVG, which gives full control over both the dash pattern and corner radius. [This generator](https://kovart.github.io/dashed-border-generator/) came in handy when testing.
+
+The SVG is absolutely positioned as an overlay to fill the parent component. The animation runs only on hover, applied programmatically since `pointer-events: none` keeps the SVG from blocking interaction with underlying elements.
+
+Here is the final result:
+
+<Dropzone />
+
+## The code
+
+The SVG `<rect>` is inset by half the stroke width so the stroke stays fully visible inside the viewBox. To keep the SVG from intercepting mouse events, `pointer-events: none` is applied. In Tailwind, this means you can’t rely on `:hover` styles directly, so the animation has to be triggered programmatically.
+
+SVG needs concrete pixel dimensions for consistent dash spacing. Given that this needed to be used within a responsive layout, I used `useMeasure` from `@uidotdev/usehooks`. This approach doesn’t work with SSR, since measuring happens on the client, but given that this was for an SPA it was an acceptable trade-off.
+
+```tsx:truncate
+export function AnimatedDashedBorder(props: AnimatedDashedBorderProps) {
+  const {
+    borderRadius = 8,
+    animationDuration = 1,
+    dashArray = "4 4",
+    strokeWidth = 1,
+    width = 0,
+    height = 0,
+    active = false,
+    children,
+    className,
+    ...rest
+  } = props;
+
+  const rectWidth = width - strokeWidth;
+  const rectHeight = height - strokeWidth;
+
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox={`0 0 ${width} ${height}`}
+      className={cn("pointer-events-none absolute inset-0", className)}
+      {...rest}
+    >
+      <rect
+        x={strokeWidth / 2}
+        y={strokeWidth / 2}
+        width={rectWidth}
+        height={rectHeight}
+        rx={borderRadius}
+        ry={borderRadius}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={strokeWidth}
+        strokeDasharray={dashArray}
+        style={{
+          transition: "stroke 0.2s",
+          animation: active
+            ? `dashoffset-move ${animationDuration}s linear infinite`
+            : undefined,
+        }}
+      />
+      <style>
+        {`@keyframes dashoffset-move {
+          to {
+            stroke-dashoffset: -8;
+          }
+        }`}
+      </style>
+    </svg>
+  );
+}
+```
+
+It can then be used like this:
+
+```tsx
+export function Dropzone() {
+  const [isHovering, setIsHovering] = useToggle(false);
+
+  const [ref, { width, height }] = useMeasure();
+
+  return (
+    <Box
+      className="bg-background-surface-interactive text-border-strong w-full rounded-xl p-1 hover:text-purple-500"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
+      <Box
+        ref={ref}
+        className="relative flex cursor-pointer items-center justify-center gap-x-3 p-4"
+      >
+        <Box className="text-text-muted flex items-center gap-x-2 transition-all group-hover:text-purple-400">
+          <Upload className="size-4" />
+          <Box className="text-sm">Drop your files here</Box>
+        </Box>
+        <AnimatedDashedBorder
+          width={width}
+          height={height}
+          dashArray="4 4"
+          strokeWidth={1}
+          borderRadius={8}
+          animationDuration={1}
+          active={isHovering}
+        />
+      </Box>
+    </Box>
+  );
+}
+```

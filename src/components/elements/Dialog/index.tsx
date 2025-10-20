@@ -1,13 +1,13 @@
-"use client";
-import * as React from "react";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { cn } from "@/utils/cn.util";
-import { AnimatePresence, Variants } from "motion/react";
-import { motion } from "motion/react";
-import { createContext } from "@/utils/createContext.util";
-import { LAYOUT_WRAPPER_ID } from "@/components/layouts/LayoutMain";
+'use client';
+import * as React from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { cn } from '@/utils/cn.util';
+import { AnimatePresence, Variants } from 'motion/react';
+import { motion } from 'motion/react';
+import { createContext } from '@/utils/createContext.util';
+import { LAYOUT_WRAPPER_ID } from '@/components/layouts/LayoutMain';
 
-type DialogContextProps = Pick<DialogPrimitive.DialogProps, "open">;
+type DialogContextProps = Pick<DialogPrimitive.DialogProps, 'open'>;
 
 const [DialogContext, useDialogContext] = createContext<DialogContextProps>();
 
@@ -19,15 +19,15 @@ const Dialog = (props: DialogPrimitive.DialogProps) => {
 
     if (element) {
       if (open) {
-        element.style.transform = "scale(0.98)";
+        element.style.transform = 'scale(0.98)';
       } else {
-        element.style.transform = "scale(1)";
+        element.style.transform = 'scale(1)';
       }
     }
 
     return () => {
       if (element) {
-        element.style.transform = "scale(1)";
+        element.style.transform = 'scale(1)';
       }
     };
   }, [open]);
@@ -65,8 +65,8 @@ const DialogOverlay = React.forwardRef<
       animate="open"
       exit="closed"
       className={cn(
-        "fixed inset-0 z-50 bg-black/20 backdrop-blur-sm",
-        className,
+        'fixed inset-0 z-50 bg-black/20 backdrop-blur-sm',
+        className
       )}
     />
   </DialogPrimitive.Overlay>

@@ -5,16 +5,20 @@ import tailwindCssAnimate from "tailwindcss-animate";
 import { darkTheme } from "./src/theme/dark.theme";
 import { lightTheme } from "./src/theme/light.theme";
 import { Themes } from "./src/theme/themes.enum";
+import { neutral } from "./src/theme/palettes";
 
 export default {
   content: [
-    "./src/mdx-components.tsx",
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/content/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
+      colors: {
+        neutral,
+      },
       space: {
         "form-default": spacing[10],
       },

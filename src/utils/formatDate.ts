@@ -2,10 +2,21 @@ const formatEngagementDate = ({
   start,
   end,
 }: {
-  start: number;
-  end: number;
+  start: string;
+  end: string | undefined;
 }) => {
-  return start === end ? end : `${start}—${end}`;
+  const startYear = new Date(start).getFullYear();
+
+  const endYear = end ? new Date(end).getFullYear() : undefined;
+
+  const display =
+    startYear === endYear
+      ? endYear
+      : endYear
+        ? `${startYear} – ${endYear}`
+        : `${startYear} – Present`;
+
+  return display;
 };
 
 export { formatEngagementDate };

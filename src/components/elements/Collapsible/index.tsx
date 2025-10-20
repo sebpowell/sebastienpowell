@@ -1,12 +1,12 @@
-"use client";
-import { createContext } from "@/utils/createContext.util";
-import { useControlledState } from "@/utils/useControllableState";
-import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
-import { motion } from "motion/react";
+'use client';
+import { createContext } from '@/utils/createContext.util';
+import { useControlledState } from '@/utils/useControllableState';
+import * as CollapsiblePrimitive from '@radix-ui/react-collapsible';
+import { motion } from 'motion/react';
 
 type CollapsibleContextProps = Pick<
   CollapsiblePrimitive.CollapsibleProps,
-  "open"
+  'open'
 >;
 
 const [CollapsibleContext, useCollapsible] =
@@ -18,7 +18,7 @@ const Collapsible = (props: CollapsiblePrimitive.CollapsibleProps) => {
   const [open, setIsOpen] = useControlledState(
     openProp,
     false,
-    onOpenChangeProp,
+    onOpenChangeProp
   );
 
   return (
@@ -35,17 +35,17 @@ const Collapsible = (props: CollapsiblePrimitive.CollapsibleProps) => {
 const CollapsibleTrigger = CollapsiblePrimitive.CollapsibleTrigger;
 
 const CollapsibleContent = (
-  props: CollapsiblePrimitive.CollapsibleContentProps,
+  props: CollapsiblePrimitive.CollapsibleContentProps
 ) => {
   const { open } = useCollapsible();
 
   const { children, ...rest } = props;
 
   const variants = {
-    "accordion-down": {
-      height: "var(--radix-accordion-content-height)",
+    'accordion-down': {
+      height: 'var(--radix-accordion-content-height)',
     },
-    "accordion-up": {
+    'accordion-up': {
       height: 0,
     },
   };
@@ -54,7 +54,7 @@ const CollapsibleContent = (
     <CollapsiblePrimitive.CollapsibleContent asChild {...rest}>
       <motion.div
         initial="accordion-up"
-        animate={open ? "accordion-down" : "accordion-up"}
+        animate={open ? 'accordion-down' : 'accordion-up'}
         variants={variants}
         transition={{ duration: 0.3, ease: [0.77, 0, 0.175, 1] }}
       >

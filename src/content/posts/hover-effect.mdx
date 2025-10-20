@@ -1,0 +1,55 @@
+import { Skills } from "@/enum/skills.enum";
+import { Capabilities } from "@/enum/capabilities.enum";
+
+export const metadata = {
+  title: "Creating elegant gover effects with CSS inset",
+  description: "Learn how to build a reusable hover effect component that creates breathing room around content without breaking layout alignment.",
+  date: "2025-01-17",
+  published: false
+};
+
+When building interactive lists or grids, you often want hover effects that extend beyond the content boundaries. Traditional approaches like adding padding on hover can cause layout shifts, while negative margins can be fragile and hard to maintain.
+
+<DemoHoverEffect />
+
+The `HoverEffect` component uses absolute positioning with `inset` to create a background that scales and fades in on hover, without affecting the document flow:
+
+```tsx:truncate
+import { Box, BoxProps } from "@/components/elements/Box";
+import { cn } from "@/utils/cn.util";
+
+export const HoverEffect = (props: BoxProps) => {
+  const { className, ...rest } = props;
+
+  return (
+    <Box
+      className={cn(
+        "absolute z-0 scale-95 opacity-0 transition group-hover:scale-100 group-hover:opacity-100",
+        className,
+      )}
+      {...rest}
+    />
+  );
+};
+```
+
+Here's how you can use it in a card component:
+
+```tsx
+export const DemoHoverEffect = () => {
+  return (
+    <Interactive className="p-12">
+      <Box className="group relative block aspect-[3/2] w-full">
+        <HoverEffect className="-inset-3 rounded-[24px] bg-background-surface-interactive" />
+        <Image
+          src={image}
+          fill
+          alt="test"
+          className="relative rounded-xl object-cover"
+          priority
+        />
+      </Box>
+    </Interactive>
+  );
+};
+```

@@ -1,4 +1,4 @@
-import "./globals.css";
+import "./globals.scss";
 import { LayoutRoot } from "@/components/layouts/LayoutRoot";
 import type { Metadata } from "next";
 
@@ -31,15 +31,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  work,
 }: Readonly<{
   children: React.ReactNode;
-  work: React.ReactNode;
 }>) {
-  return (
-    <LayoutRoot>
-      {children}
-      {work}
-    </LayoutRoot>
-  );
+  return <LayoutRoot>{children}</LayoutRoot>;
 }

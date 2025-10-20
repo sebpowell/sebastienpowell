@@ -1,0 +1,125 @@
+import { Skills } from "@/enum/skills.enum";
+import { Capabilities } from "@/enum/capabilities.enum";
+
+export const metadata = {
+  title: "Roving tab animation",
+  description: "",
+  date: "2025-08-02",
+  published: true,
+};
+
+<Tabs />
+
+```typescript:truncate
+export function AnimatedBackground({
+  children,
+  value,
+  defaultValue = null,
+  onValueChange,
+  className,
+  transition,
+  enableHover = false,
+}) {
+  const [internalActiveId, setInternalActiveId] = useState<string | null>(defaultValue);
+
+  const uniqueId = useId();
+
+  const activeId = value !== undefined ? value : internalActiveId;
+
+  const setActive = (id: string | null) => {
+    if (value === undefined) {
+      setInternalActiveId(id);
+    }
+    onValueChange?.(id);
+  };
+
+  const getChildProps = (child) => {
+    const { className: childClassName, "data-id": id, ...rest } = child.props;
+    const isActive = activeId === id;
+
+    const interactionProps = enableHover
+      ? {
+          onMouseEnter: () => setActive(id),
+          onMouseLeave: () => setActive(null),
+        }
+      : { onClick: () => setActive(id) };
+
+    return {
+      key: id,
+      className: cn("relative inline-flex", childClassName),
+      "data-active": isActive ? "true" : "false",
+      isActive,
+      ...interactionProps,
+      ...rest,
+    };
+  };
+
+  return (
+    <>
+      {Children.map(children, (child) => {
+        const props = getChildProps(child);
+        const { isActive, key, ...restProps } = props;
+
+        return cloneElement(
+          child,
+          restProps,
+          <>
+            <AnimatePresence initial={false}>
+              {isActive && (
+                <motion.div
+                  layoutId={`background-${uniqueId}`}
+                  className={cn("absolute inset-0", className)}
+                  transition={transition}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                />
+              )}
+            </AnimatePresence>
+            <div className="z-10">{child.props.children}</div>
+          </>,
+        );
+      })}
+    </>
+  );
+}
+```
+
+## Usage example
+
+```typescript:truncate
+const Tabs = () => {
+  const tabs = [
+    { id: "tab-1", label: "Tab 1" },
+    { id: "tab-2", label: "Tab 2" },
+    { id: "tab-3", label: "Tab 3" },
+  ];
+
+  const [activeTab, setActiveTab] = useState(tabs[0].id);
+
+  return (
+    <Box className="rounded-full border p-1">
+      <AnimatedBackground
+        value={activeTab}
+        onValueChange={setActiveTab}
+        className="rounded-full bg-background-surface-interactive"
+        transition={{
+          type: "spring",
+          bounce: 0.2,
+          duration: 0.3,
+        }}
+      >
+        {tabs.map((tab) => (
+          <Box
+            key={tab.id}
+            data-id={tab.id}
+            className="inline-flex h-10 cursor-pointer items-center justify-center px-5 text-sm font-medium transition-colors data-[active=true]:text-foreground data-[active=false]:text-muted-foreground"
+          >
+            {tab.label}
+          </Box>
+        ))}
+      </AnimatedBackground>
+    </Box>
+  );
+};
+```

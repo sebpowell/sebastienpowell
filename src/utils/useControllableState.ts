@@ -1,9 +1,9 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback } from 'react';
 
 function useControlledState<T>(
   controlledValue: T | undefined,
   defaultValue: T,
-  onChange?: (value: T) => void,
+  onChange?: (value: T) => void
 ) {
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue);
 
@@ -18,7 +18,7 @@ function useControlledState<T>(
         setUncontrolledValue(newValue);
       }
     },
-    [isControlled, onChange],
+    [isControlled, onChange]
   );
 
   return [value, setValue] as const;

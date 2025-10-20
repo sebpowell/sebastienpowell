@@ -1,8 +1,8 @@
-"use client";
-import { Box } from "@/components/elements/Box";
-import { Button } from "@/components/elements/Button";
-import { Heading } from "@/components/elements/Heading";
-import Link from "next/link";
+'use client';
+import { Box } from '@/components/elements/Box';
+import { Button } from '@/components/elements/Button';
+import { Heading } from '@/components/elements/Heading';
+import Link from 'next/link';
 
 export default function NotFound() {
   return (

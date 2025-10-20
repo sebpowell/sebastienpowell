@@ -1,6 +1,6 @@
-import { Box, BoxProps } from "@/components/elements/Box";
+import { Box, BoxProps } from '@/components/elements/Box';
 
-const Logo = (props: BoxProps<"svg">) => {
+const Logo = (props: BoxProps<'svg'>) => {
   return (
     <Box
       as="svg"

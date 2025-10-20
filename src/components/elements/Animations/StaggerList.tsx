@@ -1,5 +1,5 @@
-import { motion, Variants } from "motion/react";
-import { Children } from "react";
+import { motion, Variants } from 'motion/react';
+import { Children } from 'react';
 
 type FadeInItemsProps = {
   children: React.ReactNode;
