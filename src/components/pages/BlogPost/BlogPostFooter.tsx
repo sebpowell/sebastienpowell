@@ -14,7 +14,7 @@ const BlogPostNavigation = (
       className={cn("group flex flex-col justify-between space-y-2", className)}
       {...rest}
     >
-      <Box className="text-sm font-medium leading-none text-text-muted transition-colors group-hover:text-text-strong">
+      <Box className="text-sm font-medium leading-none text-text-muted/75 transition-colors group-hover:text-text-muted">
         {label}
       </Box>
       <Box className="text-sm font-medium leading-none text-text-muted transition-colors group-hover:text-text-strong">

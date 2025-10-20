@@ -45,7 +45,7 @@ const MarkdownCodeBlock = (
   };
 
   return (
-    <Box className="relative rounded-2xl border bg-background-surface p-[3px] pt-0 dark">
+    <Box className="relative rounded-2xl border bg-background-surface p-[3px] pt-0 dark text-text-body">
       <Box
         as="header"
         className="flex items-center justify-between px-3 py-2 pr-2 text-xs"

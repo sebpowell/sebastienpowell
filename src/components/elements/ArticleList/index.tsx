@@ -8,6 +8,7 @@ import Link from "next/link";
 import { formatDate } from "date-fns";
 import { HoverEffect } from "@/components/elements/Hover";
 import { Post } from "@/lib/posts";
+import { sortBy } from "remeda";
 
 const ArticleListItem = (props: { article: Post }) => {
   const { article } = props;
@@ -38,22 +39,24 @@ export const ArticleList = (props: { articles: Post[] }) => {
 
   return (
     <Box className="space-y-8">
-      {articles.map((article) => {
-        return (
-          <Link
-            href={$path({
-              route: "/blog/[handle]",
-              routeParams: { handle: article.slug },
-            })}
-            key={article.slug}
-            className="block"
-          >
-            <TapScale>
-              <ArticleListItem article={article} />
-            </TapScale>
-          </Link>
-        );
-      })}
+      {sortBy(articles, (article) => article.date)
+        .reverse()
+        .map((article) => {
+          return (
+            <Link
+              href={$path({
+                route: "/blog/[handle]",
+                routeParams: { handle: article.slug },
+              })}
+              key={article.slug}
+              className="block"
+            >
+              <TapScale>
+                <ArticleListItem article={article} />
+              </TapScale>
+            </Link>
+          );
+        })}
     </Box>
   );
 };

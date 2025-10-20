@@ -15,7 +15,7 @@ export function Dropzone() {
   return (
     <Interactive className="p-12 ">
       <Box
-        className="group w-full rounded-xl bg-background-surface-interactive p-1 text-border-strong hover:text-purple-500"
+        className="group w-full rounded-xl bg-background-surface-interactive p-1 text-neutral-600 hover:text-purple-500"
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >

@@ -4,7 +4,7 @@ import { Capabilities } from "@/enum/capabilities.enum";
 export const metadata = {
   title: "Rotating text button animation",
   description: "",
-  date: "2025-01-17",
+  date: "2025-05-02",
   capabilities: [Capabilities.frontend, Capabilities.design],
   published: true
 };
@@ -13,7 +13,6 @@ export const metadata = {
 
 ```tsx
 const [ButtonContext, useButtonContext] = createContext<ButtonContextProps>();
-
 
 const Button = (props: ButtonProps) => {
   const { className, ...rest } = props;
@@ -61,7 +60,7 @@ const ButtonRotatingText = (props: ButtonRotatingTextProps) => {
 };
 ```
 
-And you can use it like this:
+## Usage example
 
 ```tsx
 <Button className="relative">

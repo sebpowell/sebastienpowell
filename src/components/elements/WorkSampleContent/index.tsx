@@ -3,11 +3,13 @@ import { Box } from "@/components/elements/Box";
 import { Button, ButtonRotatingText } from "@/components/elements/Button";
 import { Container } from "@/components/elements/Container";
 import { Heading } from "@/components/elements/Heading";
+import { IconButton } from "@/components/elements/IconButton";
 import { Paragraph } from "@/components/elements/Paragraph";
 import { Engagement } from "@/lib/work";
 import { createContext } from "@/utils/createContext.util";
 import { formatEngagementDate } from "@/utils/formatDate";
 import { formatDomain } from "@/utils/formatDomain";
+import Link from "next/link";
 import { ReactNode } from "react";
 
 type WorkSampleContextProps = {
@@ -66,7 +68,7 @@ const WorkSampleDialogMeta = () => {
 
 const WorkSampleSidebar = () => {
   const {
-    work: { title, description, href },
+    work: { title, description, position, href },
   } = useWorkSampleContext();
 
   const formattedDomain = formatDomain(href);
@@ -74,10 +76,16 @@ const WorkSampleSidebar = () => {
   return (
     <Box className="flex shrink-0 flex-col gap-12 space-y-5 lg:flex-row">
       <Box className="space-y-4 lg:w-1/2">
+        <Link href="/">
+          <IconButton as="div" />
+        </Link>
         <Box className="space-y-4">
-          <Heading as="h1" size="h1" className="text-text-strong">
-            {title}
-          </Heading>
+          <Box className="space-y-1">
+            <Heading as="h1" size="h1" className="text-text-strong">
+              {title}
+            </Heading>
+            {position}
+          </Box>
           <Paragraph className="text-balance">{description}</Paragraph>
         </Box>
         {formattedDomain && (

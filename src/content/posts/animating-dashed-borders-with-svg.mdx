@@ -4,13 +4,11 @@ import { Capabilities } from "@/enum/capabilities.enum";
 export const metadata = {
   title: "Animated dashed borders",
   description: "Animated dashed borders",
-  date: "2025-01-17",
+  date: "2025-08-15",
   published: true
 };
 
-For a recent project, I needed to create a dropzone component with an inset dashed border.
-
-I thought it would look cool if the border animated on hover.
+I recently had to create a dropzone component with an inset dashed border, which I decided I also wanted to animate.
 
 The design required precise control over the dash pattern, but the CSS `border` property offers limited flexibility. You can make it dashed and adjust its width, but you can't define the dash array.
 
@@ -26,17 +24,11 @@ Here is the final result:
 
 ## The code
 
-The SVG `<rect>` is inset by half the stroke width so the stroke stays fully visible inside the viewBox. By default, an SVG stroke is centered on the shape's path, meaning a stroke of width _s_ extends _s / 2_ outside the bounds and can get clipped. Offsetting the rectangle by `strokeWidth / 2` keeps it neatly inside and prevents blurry or cut-off edges, especially when using `rx`/`ry` for rounded corners.
+The SVG `<rect>` is inset by half the stroke width so the stroke stays fully visible inside the viewBox. To keep the SVG from intercepting mouse events, `pointer-events: none` is applied. In Tailwind, this means you can’t rely on `:hover` styles directly, so the animation has to be triggered programmatically.
 
-To keep the SVG from intercepting mouse events, `pointer-events: none` is applied. This ensures the underlying content remains interactive. In Tailwind, that means you can’t rely on `:hover` styles directly, sothe animation has to be triggered programmatically.
+SVG needs concrete pixel dimensions for consistent dash spacing. Given that this needed to be used within a responsive layout, I used `useMeasure` from `@uidotdev/usehooks`. This approach doesn’t work with SSR, since measuring happens on the client, but given that this was for an SPA it was an acceptable trade-off.
 
-Explicit width and height values are important here. SVG needs concrete pixel dimensions for consistent dash spacing. Given that this needed to be used within a responsive layout, I used `useMeasure` from `@uidotdev/usehooks` you can measure the parent element client-side using a hook like .
-
-This approach doesn’t work with SSR, since measuring happens on the client. But given that this was for an SPA, it was an cceptable trade-off.
-
-This is what the animated border component looks like:
-
-```tsx
+```tsx:truncate
 export function AnimatedDashedBorder(props: AnimatedDashedBorderProps) {
   const {
     borderRadius = 8,
@@ -92,7 +84,7 @@ export function AnimatedDashedBorder(props: AnimatedDashedBorderProps) {
 }
 ```
 
-It can then be used like so:
+It can then be used like this:
 
 ```tsx
 export function Dropzone() {
