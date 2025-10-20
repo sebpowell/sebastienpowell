@@ -106,7 +106,6 @@ export const WorkSampleContent = (props: {
     <WorkSampleContext value={{ work }}>
       <Box className="py-24">
         <Container variant="lg" className="mx-auto w-full space-y-12">
-          
           <WorkSampleSidebar />
           <Box className="markdown">{children}</Box>
         </Container>

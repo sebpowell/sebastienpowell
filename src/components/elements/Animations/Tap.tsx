@@ -1,13 +1,14 @@
+"use client";
 import { Box, BoxProps } from "@/components/elements/Box";
 import { HTMLMotionProps, motion } from "motion/react";
 import { ElementType } from "react";
 
-export const TapScale = <T extends keyof HTMLElementTagNameMap>(
-  props: BoxProps & HTMLMotionProps<"div">,
+export const TapScale = <T extends ElementType>(
+  props: BoxProps<T> & Pick<HTMLMotionProps<any>, "whileTap">,
 ) => {
-  const { as = "div", ...rest } = props;
+  const { as = "div", whileTap = { scale: 0.98 }, ...rest } = props;
 
-  const MotionComponent = motion[as as keyof typeof motion] as any;
+  const Element = motion[as as keyof typeof motion] as any;
 
-  return <Box as={MotionComponent} whileTap={{ scale: 0.98 }} {...rest} />;
+  return <Element whileTap={whileTap} {...rest} />;
 };

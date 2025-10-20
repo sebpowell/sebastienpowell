@@ -1,7 +1,5 @@
-import { Heading } from "@/components/elements/Heading";
 import Link from "next/link";
 import { cn } from "@/utils/cn.util";
-import { Undo2 } from "lucide-react";
 import { $path } from "next-typesafe-url";
 import { Box, BoxProps } from "@/components/elements/Box";
 import { Post } from "@/lib/posts";
@@ -13,13 +11,13 @@ const BlogPostNavigation = (
 
   return (
     <Box
-      className={cn("flex flex-col justify-between space-y-2", className)}
+      className={cn("group flex flex-col justify-between space-y-2", className)}
       {...rest}
     >
-      <Box className="text-sm font-medium leading-none text-text-muted">
+      <Box className="text-sm font-medium leading-none text-text-muted transition-colors group-hover:text-text-strong">
         {label}
       </Box>
-      <Box className="text-strong text-sm font-medium leading-none">
+      <Box className="text-sm font-medium leading-none text-text-muted transition-colors group-hover:text-text-strong">
         {title}
       </Box>
     </Box>

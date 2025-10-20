@@ -30,10 +30,7 @@ export async function generateMetadata({
   const { title } = metadata;
 
   return {
-    title: `${title} | Sebastien Powell`,
-    twitter: {
-      card: "summary_large_image",
-    },
+    title: `${title}`,
     openGraph: {
       type: "website",
       url: $path({

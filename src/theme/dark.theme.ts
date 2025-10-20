@@ -7,7 +7,7 @@ const darkTheme: Theme = {
   "background-surface": neutral[1100],
   "background-surface-subtle": neutral[1000],
   "background-surface-interactive": neutral[800],
-  "background-surface-interactive-hover": neutral[400],
+  "background-surface-interactive-hover": neutral[700],
 
   "border-default": neutral[800],
 
