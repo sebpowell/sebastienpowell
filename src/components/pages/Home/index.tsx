@@ -15,7 +15,6 @@ import { Box } from "@/components/elements/Box";
 import { Container } from "@/components/elements/Container";
 import { Engagement } from "@/lib/work";
 import { HomeArticles } from "@/components/pages/Home/HomeArticles";
-import { $path } from "next-typesafe-url";
 import { Post } from "@/lib/posts";
 
 enum SectionIds {
