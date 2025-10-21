@@ -57,7 +57,7 @@ const HomePage = ({
       component: <HomeExperience work={work} />,
       readMore: {
         label: "See all",
-        href: $path({ route: "/work" }),
+        href: "/work",
       },
     },
     {
