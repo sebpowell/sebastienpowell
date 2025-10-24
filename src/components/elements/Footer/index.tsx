@@ -7,14 +7,14 @@ import Link from "next/link";
 export const Footer = () => {
   return (
     <Box as="footer" className="sticky bottom-0 left-0 z-0 h-20 w-full">
-      <Container className="relative h-full">
+      <Container className="relative flex h-full items-center">
+        <ThemeToggle />
         <Link
           href="/"
           className="absolute left-1/2 top-1/2 block w-16 -translate-x-1/2 -translate-y-1/2 text-text-strong"
         >
           <Logo />
         </Link>
-        <ThemeToggle />
       </Container>
     </Box>
   );

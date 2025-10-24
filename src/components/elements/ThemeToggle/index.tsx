@@ -17,7 +17,7 @@ const ThemeToggle = () => {
   return (
     <Box
       as="button"
-      className="absolute left-0 top-1/2 flex size-8 -translate-y-1/2 items-center justify-center rounded-full transition-colors duration-500 hover:bg-button-secondary-background-hover"
+      className="flex items-center justify-center rounded-full transition-colors duration-500 hover:bg-button-secondary-background-hover"
       onClick={handleToggle}
     >
       <Box className="size-2 rounded-full bg-text-strong" />
