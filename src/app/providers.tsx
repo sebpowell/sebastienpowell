@@ -15,7 +15,7 @@ const Providers = (props: ProvidersProps) => {
   useViewportHeight();
 
   return (
-    <ThemeProvider defaultTheme={Themes.light} themes={Object.values(Themes)}>
+    <ThemeProvider defaultTheme={Themes.dark} themes={Object.values(Themes)}>
       {children}
     </ThemeProvider>
   );
