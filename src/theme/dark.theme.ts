@@ -12,8 +12,8 @@ const darkTheme: Theme = {
   "border-default": neutral[800],
 
   "text-strong": white,
-  "text-body": neutral[300],
-  "text-muted": neutral[400],
+  "text-body": neutral[400],
+  "text-muted": neutral[500],
 
   "button-primary-text": black,
   "button-primary-background": white,

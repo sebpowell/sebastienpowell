@@ -14,6 +14,7 @@ declare module "@@@next-typesafe-url" {
   }
 
   interface StaticRouter {
+    "/about": StaticRoute;
     "/": StaticRoute;
   }
 }

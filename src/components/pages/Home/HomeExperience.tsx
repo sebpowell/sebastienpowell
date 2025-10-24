@@ -15,7 +15,7 @@ const EngagementListItem = (props: EngagementProps) => {
   const { title, description, cover, start, end, href, slug, position } = props;
 
   return (
-    <Box className="flex flex-col gap-3 lg:flex-row">
+    <Box className="flex flex-col gap-y-2 gap-x-3 lg:flex-row">
       <Box className="lg:w-[150px]">{formatEngagementDate({ start, end })}</Box>
       <Box className="flex-1 space-y-6">
         <Box className="space-y-4">
@@ -34,7 +34,7 @@ const EngagementListItem = (props: EngagementProps) => {
               >
                 {title}
               </Link>
-              <ArrowUpRight className="size-4" />
+              <ArrowUpRight className="size-5" />
             </Heading>
             <Box className="leading-none text-text-muted">{position}</Box>
           </Box>

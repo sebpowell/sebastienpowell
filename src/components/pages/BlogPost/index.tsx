@@ -18,7 +18,7 @@ export const BlogPost = (props: {
   const { source, previousPost, nextPost } = post;
 
   return (
-    <Box className="w-full py-24">
+    <Box className="w-full pt-24 pb-12 lg:py-24">
       <Container className="space-y-6">
         <BlogPostHeader title={post.title} date={post.date} readingTime={0} />
         <Box className="space-y-6">

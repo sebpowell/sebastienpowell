@@ -16,6 +16,8 @@ import { Container } from "@/components/elements/Container";
 import { Engagement } from "@/lib/work";
 import { HomeArticles } from "@/components/pages/Home/HomeArticles";
 import { Post } from "@/lib/posts";
+import { Button } from "@/components/elements/Button";
+import Link from "next/link";
 
 enum SectionIds {
   "about" = "about",
@@ -45,8 +47,15 @@ const HomePage = ({
       id: SectionIds.about,
       title: "About",
       component: (
-        <div className="markdown">
-          <HomeAbout />
+        <div className="flex flex-col space-y-4">
+          <div className="markdown">
+            <HomeAbout />
+          </div>
+          <div>
+            <Button asChild>
+              <Link href="/about">Read more</Link>
+            </Button>
+          </div>
         </div>
       ),
     },
@@ -74,7 +83,7 @@ const HomePage = ({
   ];
 
   return (
-    <Box className="py-24">
+    <Box className="pt-24 pb-12 lg:py-24">
       <Container className="flex flex-1 flex-col space-y-12">
         <HomeIntro />
         {sections.map((section, i) => {

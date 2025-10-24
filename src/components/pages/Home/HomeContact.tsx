@@ -11,7 +11,7 @@ const ContactRow = (props: ContactRow) => {
   const { title, label, href } = props;
 
   return (
-    <Box className="flex flex-col gap-4 lg:flex-row lg:items-center">
+    <Box className="flex flex-col gap-x-4 gap-y-2 lg:flex-row lg:items-center">
       <Box className="leading-none text-text-muted w-[150px]">{title}</Box>
       <Box className="flex gap-1 leading-none text-text-strong">
         <Link as="a" href={href} target="_blank" variant="ghost" external>

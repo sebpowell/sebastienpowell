@@ -19,7 +19,7 @@ export const IconButton = <T extends ElementType>(
     <TapScale
       as={as as ElementType}
       className={cn(
-        "flex size-10 items-center justify-center rounded-full bg-background-surface-interactive hover:bg-background-surface-interactive-hover",
+        "flex size-10 items-center justify-center rounded-full bg-background-surface-interactive hover:bg-background-surface-interactive-hover hover:text-text-strong transition-colors duration-300",
         className,
       )}
       onClick={() => play()}
